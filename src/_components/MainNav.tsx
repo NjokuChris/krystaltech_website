@@ -1,15 +1,21 @@
 "use client";
 import { useState, useEffect } from "react";
-import Nav from "@/_components/Nav";
 
 import Image from "next/image";
+import { FiChevronDown } from "react-icons/fi";
 const MainNav = () => {
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const toggleDropdown = (name: string) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
+
   const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       // Adjust 100 to the scroll distance you want (in pixels)
-      if (window.scrollY > 200) {
+      if (window.scrollY > 300) {
         setShowNav(true);
       } else {
         setShowNav(false);
@@ -19,6 +25,14 @@ const MainNav = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navItems = [
+    { name: "Home", links: ["Overview", "Updates", "Get Started"] },
+    { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
+    { name: "Page", links: ["About", "Contact", "FAQ"] },
+    { name: "Shop", links: ["Products", "Cart", "Checkout"] },
+    { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
+  ];
 
   return (
     <nav
@@ -37,7 +51,40 @@ const MainNav = () => {
             height={85}
           />
         </div>
-        <Nav />
+
+        <ul className="hidden md:flex justify-between md:w-[40%] text-black text-xl font-bold ">
+          {navItems.map((item) => (
+            <li key={item.name} className="relative group">
+              <button
+                onClick={() => toggleDropdown(item.name)}
+                className="flex items-center space-x-1 hover:text-orange-600"
+              >
+                <span>{item.name}</span>
+                <FiChevronDown
+                  className={`transition-transform duration-200 ${
+                    openDropdown === item.name ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown */}
+              {openDropdown === item.name && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-black/70 backdrop-blur-md rounded-lg shadow-lg py-2">
+                  {item.links.map((link) => (
+                    <a
+                      key={link}
+                      href="#"
+                      className="block px-4 py-2 text-sm hover:bg-white/10"
+                    >
+                      {link}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
         <button className="hidden md:flex bg-orange-500 text-white px-7 py-3 text-xl rounded-lg hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all">
           Get started
         </button>

@@ -22,7 +22,7 @@ const Hero = () => {
           {" "}
           <div className=" w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
             <h1 className="text-7xl font-bold font-sans">
-              Innovative Tech Solution
+              Innovative Tech Solutions
             </h1>
             <p className="text-xl font-sans max-w-md">
               We help businesses and individuals to innovate and grow their
