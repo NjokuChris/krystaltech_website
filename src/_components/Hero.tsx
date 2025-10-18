@@ -21,7 +21,7 @@ const Hero = () => {
         <div className="flex justify-center w-full h-full px-10">
           {" "}
           <div className=" w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
-            <h1 className="text-7xl font-bold font-sans">
+            <h1 className="text-8xl font-bold font-sans w-[40vw]">
               Innovative Tech Solutions
             </h1>
             <p className="text-xl font-sans max-w-md">
@@ -32,7 +32,7 @@ const Hero = () => {
               Get started
             </button>
           </div>
-          {/* optional right side — image or illustration later */}
+          <div className="w-[27vw] h-full "></div>
         </div>
       </section>{" "}
       <div className="absolute top-0 h-screen w-[98vw] flex justify-between items-center px-[1vw]">

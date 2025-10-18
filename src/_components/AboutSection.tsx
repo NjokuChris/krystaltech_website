@@ -3,9 +3,10 @@ import React from "react";
 //next
 import Image from "next/image";
 import { FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa6";
 const AboutSection = () => {
   return (
-    <section className="flex flex-nowrap h-screen py-20">
+    <section className="flex flex-nowrap h-fit py-20">
       <div className="flex justify-end items-start w-[50%] pr-40">
         <div className="w-fit ml-auto">
           <Image
@@ -68,8 +69,10 @@ const AboutSection = () => {
               <span className="hover:underline">Strategic Planning.</span>
             </li>
           </ul>
-          <button>Reach Out</button>
         </div>
+        <button className="flex justify-center items-center gap-2 w-fit bg-orange-600 text-white px-7 py-3 text-xl rounded-lg hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all">
+          Reach Out <FaArrowRight />
+        </button>
       </div>
     </section>
   );
