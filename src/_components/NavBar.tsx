@@ -33,7 +33,7 @@ const NavBar = () => {
           <p className="flex gap-2 w-fit justify-center items-center">
             {" "}
             <FaFire className="text-orange-600" />{" "}
-            <span>
+            <span className="text-white dark:text-white">
               <span className="font-bold">Hot Line:</span> + 123 12 0033 39
             </span>
           </p>

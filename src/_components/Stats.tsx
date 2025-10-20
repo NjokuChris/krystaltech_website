@@ -29,10 +29,11 @@ const Stats = () => {
             height={40}
             className="rounded"
           />
-          <p className="w-[40%]">
-            Consulting for you software development ,web ,mobile ,destop
-            applictions for your businesses
+          <p className="w-[40%] text-white dark:text-white">
+            Consulting for your software development, web, mobile, desktop
+            applications for your businesses
           </p>
+
           <div className="flex text-black gap-3">
             <button className="bg-white p-4 h-fit rounded-full text-black ">
               <FaArrowLeft />

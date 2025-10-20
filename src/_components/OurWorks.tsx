@@ -1,4 +1,5 @@
 import React from "react";
+import WorkComp from "./WorkComp";
 
 const OurWork = () => {
   return (
@@ -7,9 +8,12 @@ const OurWork = () => {
         <h2 className="text-sm rounded-full px-4 py-2 w-fit bg-orange-100 text-orange-500 uppercase font-bold mb-2">
           Our Work
         </h2>
-        <p className="text-6xl font-bold text-gray-800">
+        <p className="text-6xl font-bold text-gray-800 mb-10">
           Exclusive IT Solutions
         </p>
+        <div>
+          <WorkComp />
+        </div>{" "}
       </div>
     </section>
   );

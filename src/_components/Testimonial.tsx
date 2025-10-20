@@ -36,7 +36,7 @@ const Testimonial = () => {
         </div>
 
         {/* Main Testimonial Card */}
-        <div className="relative p-8 md:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center gap-8">
+        <div className="relative p-8 md:p-10 rounded-3xl  flex flex-col md:flex-row items-center gap-8">
           {/* Customer Image + Info */}
           <div className="flex flex-col items-center text-center">
             <Image
