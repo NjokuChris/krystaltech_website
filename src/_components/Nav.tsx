@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 
-const Navbar = () => {
+const Nav = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -20,7 +20,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="md:w-[40%] text-black text-xl font-bold">
+    <nav className="md:w-[40%] text-white text-xl font-bold">
       {/* Desktop Nav */}
       <ul className="hidden md:flex justify-between ">
         {navItems.map((item) => (
@@ -29,7 +29,7 @@ const Navbar = () => {
               onClick={() => toggleDropdown(item.name)}
               className="flex items-center space-x-1 hover:text-orange-600"
             >
-              <span>{item.name}</span>
+              <span className="text-black">{item.name}</span>
               <FiChevronDown
                 className={`transition-transform duration-200 ${
                   openDropdown === item.name ? "rotate-180" : ""
@@ -101,4 +101,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Nav;
