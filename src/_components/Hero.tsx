@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <>
       <section
-        className="relative h-screen w-full flex flex-col justify-start items-center overflow-x-hidden bg-cover bg-top bg-no-repeat"
+        className="relative pb-20 h-fit w-full flex flex-col justify-start items-center overflow-x-hidden bg-cover bg-top bg-no-repeat"
         style={{
           backgroundImage: "url('/hero-image.jpg')",
         }}
@@ -32,10 +32,10 @@ const Hero = () => {
         </div>
 
         {/* Overlay with social links and email */}
-        <div className="absolute top-0 left-0 h-screen w-full flex justify-between items-center pointer-events-none">
+        <div className="absolute top-0 left-0 h-fit w-full mt-[50vh] -px-4 flex justify-between items-center pointer-events-none">
           {/* Left Social Links */}
           <div className="hidden md:flex flex-col gap-6 text-white mt-40 font-semibold pointer-events-auto">
-            <div className="px-5 py-3 rounded-t-full transform -rotate-90 origin-left">
+            <div className="px-5 py-10 mx-10 rounded-t-full transform -rotate-90 origin-left">
               <div className="flex gap-12 text-md">
                 <Link
                   href="https://facebook.com"
@@ -66,7 +66,7 @@ const Hero = () => {
           </div>
 
           {/* Right Support Mail */}
-          <div className="hidden md:flex justify-end pointer-events-auto">
+          <div className="hidden md:flex mx-5 justify-end pointer-events-auto">
             <Link
               href="mailto:support@krystaltechhub.com"
               className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-6 py-3 rounded-b-full transform rotate-90 origin-right shadow-lg shadow-orange-400/30 hover:shadow-orange-400/50 transition-all"
