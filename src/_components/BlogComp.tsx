@@ -13,7 +13,7 @@ const BlogComp = () => {
         <p className="font-bold text-xl  ">May</p>
       </div>
 
-      <h3 className="capitalize text-2xl font-bold hover:underline">
+      <h3 className="capitalize text-white dark:text-white text-2xl font-bold hover:underline">
         We usually work for Website development, eCommerce
       </h3>
     </article>

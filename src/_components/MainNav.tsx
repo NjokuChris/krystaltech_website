@@ -52,16 +52,18 @@ const MainNav = () => {
           />
         </div>
 
-        <ul className="hidden md:flex justify-between md:w-[40%] text-black text-xl font-bold ">
+        <ul className="hidden md:flex justify-between md:w-[40%] text-black text-md font-bold ">
           {navItems.map((item) => (
             <li key={item.name} className="relative group">
               <button
                 onClick={() => toggleDropdown(item.name)}
-                className="flex items-center space-x-1 hover:text-orange-600"
+                className="flex items-center text-gray-700 space-x-1 hover:text-orange-600  "
               >
-                <span>{item.name}</span>
+                <span className="text-black hover:text-orange-600">
+                  {item.name}
+                </span>
                 <FiChevronDown
-                  className={`transition-transform duration-200 ${
+                  className={`transition-transform  duration-200 ${
                     openDropdown === item.name ? "rotate-180" : ""
                   }`}
                 />

@@ -1,13 +1,161 @@
 import React from "react";
 
+//from next
+import Image from "next/image";
+import Link from "next/link";
+import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import MapPreview from "./MapPreview";
+
 const Footer = () => {
   return (
     <footer
-      className="relative h-fit w-full flex flex-col justify-start items-center overflow-hidden py-20 bg-fixed bg-top bg-no-repeat"
+      className="relative h-fit w-full flex flex-col justify-between items-between overflow-hidden bg-fixed bg-top bg-no-repeat shadow-2xl "
       style={{
         backgroundImage: "url('/bg-1.jpg')",
       }}
-    ></footer>
+    >
+      <div className="bg-orange-100 w-100 h-120 rounded-4xl absolute z-0 transform rotate-45 -top-20 -left-23 shadow-2xl "></div>
+      <div className="px-20 py-10 z-1 flex justify-between items-center my-10 ">
+        <div className="min-w-[10%]">
+          <div className="h-30 flex flex-col  overflow-hidden -ml-20">
+            <Image
+              src="/krystal4.png"
+              alt="krystal tech hub logo"
+              width={300}
+              height={105}
+            />
+          </div>
+
+          <div className="flex gap-4 -mt-5">
+            <Link
+              href="mailto:support@krystaltechhub.com"
+              className="bg-orange-500 text-white font-semibold p-3 rounded-full shadow-lg hover:shadow-orange-200/50 transition-all"
+            >
+              <FaFacebook />
+            </Link>
+            <Link
+              href="mailto:support@krystaltechhub.com"
+              className="bg-orange-500 text-white font-semibold p-3 rounded-full shadow-lg hover:shadow-orange-200/50 transition-all"
+            >
+              <FaInstagram />
+            </Link>{" "}
+            <Link
+              href="mailto:support@krystaltechhub.com"
+              className="bg-orange-500 text-white font-semibold p-3 rounded-full shadow-lg hover:shadow-orange-200/50 transition-all"
+            >
+              <FaXTwitter />
+            </Link>
+          </div>
+        </div>
+        {/* Company */}
+        <div>
+          <h3 className="text-white font-semibold mb-4">Company</h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="/about" className="hover:text-orange-500 transition">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="/careers" className="hover:text-orange-500 transition">
+                Careers
+              </a>
+            </li>
+            <li>
+              <a href="/blog" className="hover:text-orange-500 transition">
+                Blog
+              </a>
+            </li>
+            <li>
+              <a href="/contact" className="hover:text-orange-500 transition">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Solutions */}
+        <div>
+          <h3 className="text-white font-semibold mb-4">Solutions</h3>
+          <ul className="space-y-2">
+            <li>
+              <a
+                href="/services/web"
+                className="hover:text-orange-500 transition"
+              >
+                Web Development
+              </a>
+            </li>
+            <li>
+              <a
+                href="/services/mobile"
+                className="hover:text-orange-500 transition"
+              >
+                Mobile Apps
+              </a>
+            </li>
+            <li>
+              <a
+                href="/services/ai"
+                className="hover:text-orange-500 transition"
+              >
+                AI Solutions
+              </a>
+            </li>
+            <li>
+              <a
+                href="/services/cloud"
+                className="hover:text-orange-500 transition"
+              >
+                Cloud & DevOps
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Resources */}
+
+        {/* Support */}
+        <div>
+          <h3 className="text-white font-semibold mb-4">Support</h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="/help" className="hover:text-orange-500 transition">
+                Help Center
+              </a>
+            </li>
+            <li>
+              <a href="/pricing" className="hover:text-orange-500 transition">
+                Pricing
+              </a>
+            </li>
+            <li>
+              <a href="/faq" className="hover:text-orange-500 transition">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="/status" className="hover:text-orange-500 transition">
+                System Status
+              </a>
+            </li>
+          </ul>
+        </div>
+        <MapPreview />
+      </div>
+
+      <div className="bg-white/10 w-full h-20 flex justify-between items-center pl-100 pr-20">
+        <p>
+          Copyright © {new Date().getFullYear()} krystalTechnologies, All rights
+          reserved.
+        </p>
+        <div className=" flex gap-3">
+          <a href="#">Term of use</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
   );
 };
 

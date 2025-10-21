@@ -4,7 +4,7 @@ const WorkComp = () => {
   return (
     <div className="group">
       <div
-        className=" rounded-lg w-[25vw] h-[25vw] bg-cover bg-top hover:filter hover:brightness-75 transition-all duration-300 "
+        className=" rounded-lg min-w-[25vw] min-h-[25vw] bg-cover bg-top hover:filter hover:brightness-75 transition-all duration-300 "
         style={{
           backgroundImage: "url('/the-dev.jpg')",
         }}
@@ -14,7 +14,7 @@ const WorkComp = () => {
             01
           </p>
 
-          <p className="text-black my-auto font-bold text-2xl 3xl:text-4xl">
+          <p className="text-black my-auto font-bold text-xl 3xl:text-4xl">
             IT consultancy solution
           </p>
         </div>

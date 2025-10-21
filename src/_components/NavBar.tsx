@@ -27,14 +27,14 @@ const NavBar = () => {
     { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
   ];
   return (
-    <header className="w-full flex flex-col justify-center items-center fixed -top-0 md:relative ">
+    <header className="w-full flex flex-col justify-center items-center fixed -top-0 md:relative z-50 ">
       <div className="w-full lg:w-[90%] 2xl:w-[90%] flex flex-col justify-center items-center">
         <div className="w-full py-2 px-[5%] md:border-x-6 md:border-orange-600 md:rounded-t-full bg-gray-900 ">
           <p className="flex gap-2 w-fit justify-center items-center">
             {" "}
             <FaFire className="text-orange-600" />{" "}
             <span className="text-white dark:text-white">
-              <span className="font-bold">Hot Line:</span> + 123 12 0033 39
+              <span className="font-bold">Hot Line:</span> +234 806 244 2682
             </span>
           </p>
         </div>
@@ -47,20 +47,20 @@ const NavBar = () => {
               height={85}
             />
           </div>
-          <nav className="md:w-[40%] text-white text-xl font-bold">
+          <nav className="md:w-[40%] text-white text-md font-bold">
             {/* Desktop Nav */}
             <ul className="hidden md:flex justify-between ">
               {navItems.map((item) => (
                 <li key={item.name} className="relative group">
                   <button
                     onClick={() => toggleDropdownn(item.name)}
-                    className="flex items-center text-black space-x-1 hover:text-orange-600"
+                    className="flex items-center text-gray-700 space-x-1 hover:text-orange-600"
                   >
                     <span className="text-black hover:text-orange-600">
                       {item.name}
                     </span>
                     <FiChevronDown
-                      className={`transition-transform duration-200 ${
+                      className={`transition-transform  duration-200 ${
                         openDropdown === item.name ? "rotate-180" : ""
                       }`}
                     />

@@ -9,7 +9,7 @@ const Testimonial = () => {
       className="relative w-full py-20 px-5 md:px-20 bg-cover bg-center bg-no-repeat flex justify-center items-center"
       style={{ backgroundImage: "url('/testimonial-bg.jpg')" }}
     >
-      <div className="w-full md:w-[80vw] flex flex-col md:flex-row justify-center items-center gap-5 ">
+      <div className="w-full md:w-[90%] flex flex-col md:flex-row justify-center items-center gap-5 ">
         {/* Side Images */}
         <div className="flex md:flex-col flex-row md:gap-5 mb-10 gap-3 justify-center items-center">
           <Image
@@ -44,7 +44,7 @@ const Testimonial = () => {
               alt="John Doe - Client"
               width={200}
               height={200}
-              className="rounded-full border-4  shadow-lg"
+              className="rounded-full min-w-50 min-h-50 border-4  shadow-lg"
             />
             <h3 className="text-xl font-bold text-orange-200 mt-4">John Doe</h3>
             <p className="text-gray-600 uppercase text-sm">Client</p>
