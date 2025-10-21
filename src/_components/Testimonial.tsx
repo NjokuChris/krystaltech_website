@@ -11,27 +11,27 @@ const Testimonial = () => {
     >
       <div className="w-full md:w-[90%] flex flex-col md:flex-row justify-center items-center gap-5 ">
         {/* Side Images */}
-        <div className="flex md:flex-col flex-row md:gap-5 mb-10 gap-3 justify-center items-center">
+        <div className="flex md:flex-col flex-row md:gap-5 md:mb-10 gap-3 justify-center items-center">
           <Image
             src="/testimonial-4.png"
             alt="Customer testimonial"
             width={90}
             height={90}
-            className="rounded-full border-2  shadow-lg md:ml-10 relative left-18"
+            className="rounded-full border-2  shadow-lg md:ml-10 relative top-5 md:top-0 left-0 md:left-18"
           />
           <Image
             src="/testimonial-2.png"
             alt="Customer testimonial"
             width={90}
             height={90}
-            className="rounded-full border-2  shadow-lg md:ml-5 relative left-15"
+            className="rounded-full border-2  shadow-lg md:ml-5 relative  left-0 md:left-15"
           />
           <Image
             src="/testimonial-3.png"
             alt="Customer testimonial"
             width={90}
             height={90}
-            className="rounded-full border-2  shadow-lg md:ml-0 relative left-25"
+            className="rounded-full border-2  shadow-lg md:ml-0 relative top-5 md:top-0 left-0 md:left-25"
           />
         </div>
 

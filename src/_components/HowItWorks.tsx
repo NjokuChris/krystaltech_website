@@ -19,7 +19,7 @@ const HowItWorks = () => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 w-full max-w-6xl">
+      <div className=" flex flex-col gap-5 md:grid md:grid-cols-2 lg:grid-cols-4 w-full max-w-6xl">
         {/* Step 1 */}
         <div className="flex flex-col items-start p-8 mt-10 rounded-2xl rounded-tr-none bg-gray-800 text-white hover:shadow-lg transition">
           <PiNumberSquareOneFill className="text-5xl text-orange-500 mb-4" />
@@ -30,7 +30,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="flex flex-col items-start p-8 mb-10 rounded-t-2xl bg-orange-500 text-white hover:shadow-lg transition">
+        <div className="flex flex-col items-start p-8 md:mb-10 rounded-t-2xl bg-orange-500 text-white hover:shadow-lg transition">
           <PiNumberSquareTwoFill className="text-5xl mb-4" />
           <h4 className="text-xl font-semibold mb-2">Share Your Vision</h4>
           <p className="text-gray-200">
@@ -39,7 +39,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="flex flex-col items-start mt-10 p-8 rounded-b-2xl bg-gray-800 hover:shadow-lg transition text-white">
+        <div className="flex flex-col items-start md:mt-10 p-8 rounded-b-2xl bg-gray-800 hover:shadow-lg transition text-white">
           <PiNumberSquareThreeFill className="text-5xl text-orange-500 mb-4" />
           <h4 className="text-xl font-semibold mb-2">Collaborate and Build</h4>
           <p className="text-gray-400">

@@ -52,7 +52,7 @@ const WhyChooseUs: React.FC = () => {
           Why Choose Us
         </h2>
 
-        <p className="text-lg max-w-[40vw] mx-auto text-gray-700 mb-14">
+        <p className="text-lg md:max-w-[40vw] mx-auto text-gray-700 mb-14">
           Let us change the way you think about technology — we combine
           creativity, reliability, and innovation to help your business scale
           faster.

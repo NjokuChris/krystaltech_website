@@ -34,7 +34,7 @@ const AboutSection = () => {
         <h2 className="bg-gray-500/20 text-xs capitalize text-orange-600 rounded-full py-2 px-3 w-fit">
           About our Company
         </h2>
-        <p className="font-bold text-6xl text-gray-800 w-[80vw] md:w-[40vw] ">
+        <p className="font-bold text-5xl md:text-6xl text-gray-800 w-[80vw] md:w-[40vw] ">
           Work together for your business
         </p>
         <p className="w-[80vw] md:w-[40vw] text-lg text-gray-500">
@@ -51,23 +51,23 @@ const AboutSection = () => {
             className="rounded"
           />{" "}
           <ul className="text-gray-500">
-            <li className="flex gap-2 text-xl items-center">
+            <li className="flex gap-2 text-xl items-start">
               <FaArrowCircleRight className="text-orange-600" />
               <span className="hover:underline">
                 Solution We Provide For You
               </span>
             </li>
-            <li className="flex gap-2 text-xl items-center">
+            <li className="flex gap-2 text-xl items-start">
               <FaArrowCircleRight className="text-orange-600" />
               <span className="hover:underline">Provide Finest Services</span>
             </li>
-            <li className="flex gap-2 text-xl items-center">
+            <li className="flex gap-2 text-xl items-start">
               <FaArrowCircleRight className="text-orange-600" />
               <span className="hover:underline">
                 Providing Information To A Client.
               </span>
             </li>
-            <li className="flex gap-2 text-xl items-center">
+            <li className="flex gap-2 text-xl items-start">
               <FaArrowCircleRight className="text-orange-600" />
               <span className="hover:underline">Strategic Planning.</span>
             </li>

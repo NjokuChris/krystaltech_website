@@ -38,7 +38,7 @@ const NavBar = () => {
             </span>
           </p>
         </div>
-        <div className="h-25 w-full md:w-[90%] md:rounded-b-[80px] bg-white p-8 flex justify-between items-center">
+        <div className="h-25 w-full md:w-[90%] md:rounded-b-[80px] bg-white p-8 flex justify-between items-center shadow-2xl ">
           <div>
             <Image
               src="/krystal4.png"

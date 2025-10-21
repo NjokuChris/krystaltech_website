@@ -4,12 +4,12 @@ const WorkComp = () => {
   return (
     <div className="group">
       <div
-        className=" rounded-lg min-w-[25vw] min-h-[25vw] bg-cover bg-top hover:filter hover:brightness-75 transition-all duration-300 "
+        className=" rounded-lg h-80 md:min-w-[25vw] md:min-h-[25vw] bg-cover bg-top hover:filter hover:brightness-75 transition-all duration-300 "
         style={{
           backgroundImage: "url('/the-dev.jpg')",
         }}
       >
-        <div className="bg-[#f9f6f6] relative top-[23vw] left-0 w-[80%] h-[100px] border-l-15 border-orange-600 flex gap-3 px-5 rounded-r-lg shadow ">
+        <div className="bg-[#f9f6f6] relative bottom-100 md:top-[23vw] left-0 w-[80%] h-[100px] border-l-15 border-orange-600 flex gap-3 px-5 rounded-r-lg shadow ">
           <p className="text-7xl font-bold  text-gray-700 group-hover:text-orange-600 group-hover:[webkit-text-stroke:0px_white] transition-all duration-300 my-auto">
             01
           </p>
