@@ -10,7 +10,7 @@ import {
 
 const NextServices = () => {
   return (
-    <section className=" bg-orange-100 w-full min-h-screen flex flex-col justify-center items-center overflow-hidden py-20">
+    <section className=" bg-orange-50 w-full min-h-screen flex flex-col justify-center items-center overflow-hidden py-20">
       <div className="w-[90vw] md:w-[80vw]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Graphic Design */}

@@ -17,7 +17,7 @@ const Hero = () => {
         {/* Hero Content */}
         <div className="flex justify-center w-full h-full px-10 mt-35 md:mt-0">
           <div className="w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
-            <h1 className="text-7xl md:text-8xl font-bold font-sans w-[40vw]">
+            <h1 className="text-7xl md:text-8xl font-bold font-sans w-[40vw] mt-10">
               Innovative Tech Solutions
             </h1>
             <p className="text-xl font-sans max-w-md">
@@ -69,7 +69,7 @@ const Hero = () => {
           <div className="hidden md:flex mx-5 justify-end pointer-events-auto">
             <Link
               href="mailto:support@krystaltechhub.com"
-              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-6 py-3 rounded-b-full transform rotate-90 origin-right shadow-lg shadow-orange-400/30 hover:shadow-orange-400/50 transition-all"
+              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-6 py-3 rounded-b-full transform rotate-90 origin-right shadow-lg hover:shadow-orange-200/50 transition-all"
             >
               Support@krystaltechhub.com
             </Link>

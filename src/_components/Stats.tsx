@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
+import Partners from "./Partners";
+
 const Stats = () => {
   return (
     <section className="w-full flex flex-col">
@@ -44,7 +46,7 @@ const Stats = () => {
           </div>
         </div>
       </div>
-      <div className="h-50 w-full bg-black"></div>
+      <Partners />
     </section>
   );
 };

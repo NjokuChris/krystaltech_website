@@ -10,6 +10,9 @@ import HowItWorks from "@/_components/HowItWorks";
 import Testimonial from "@/_components/Testimonial";
 import WhyChooseUs from "@/_components/WhyChooseUs";
 import OurWork from "@/_components/OurWorks";
+import Extra from "@/_components/Extra";
+import PreFooter from "@/_components/PreFooter";
+import Footer from "@/_components/Footer";
 
 const LandingPage = () => {
   return (
@@ -23,6 +26,9 @@ const LandingPage = () => {
       <Testimonial />
       <WhyChooseUs />
       <OurWork />
+      <Extra />
+      <PreFooter />
+      <Footer />
     </main>
   );
 };

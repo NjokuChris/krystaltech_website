@@ -36,7 +36,7 @@ const MainNav = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 hidden md:flex w-full transition-all duration-500 z-50 shadow-lg shadow-b ${
+      className={`fixed top-0 left-0 hidden md:flex w-full transition-all duration-500 z-500 shadow-lg shadow-b ${
         showNav
           ? "opacity-100 translate-y-0 backdrop-blur-md bg-black/60"
           : "opacity-0 -translate-y-10 pointer-events-none"

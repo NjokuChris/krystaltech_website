@@ -9,7 +9,7 @@ import MainNav from "./MainNav";
 
 const AboutSection = () => {
   return (
-    <section className="bg-orange-100 flex flex-col-reverse md:flex-row md:flex-nowrap w-full h-fit py-20 overflow-hidden">
+    <section className="bg-orange-50 flex flex-col-reverse md:flex-row md:flex-nowrap w-full h-fit py-20 px-2 overflow-hidden">
       <MainNav />
       <div className="flex justify-end items-start w-full md:w-[50%] pr-40">
         <div className="w-fit ml-auto mt-5 md:mt-0">
@@ -38,9 +38,8 @@ const AboutSection = () => {
           Work together for your business
         </p>
         <p className="w-[80vw] md:w-[40vw] text-lg text-gray-500">
-          IT consulting and software development services. We havace helped
-          non-IT organizations and companies improve business and companies
-          improve
+          IT consulting and software development services. We have helped non-IT
+          organizations and companies improve business and companies improve
         </p>
         <div className="bg-gray-300 h-[0.5px] w-[60%]"></div>
         <div className="flex gap-5 justify-start items-center">

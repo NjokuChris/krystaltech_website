@@ -46,13 +46,13 @@ const features: Feature[] = [
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <section className="relative w-full py-20 bg-[#0B0F19] text-center">
+    <section className="relative w-full py-20 bg-white text-center">
       <div className="mx-auto px-6 text-center">
         <h2 className="text-sm uppercase md:text-sm font-bold text-orange-500 mb-5">
           Why Choose Us
         </h2>
 
-        <p className="text-lg max-w-[40vw] mx-auto text-gray-300 mb-14">
+        <p className="text-lg max-w-[40vw] mx-auto text-gray-700 mb-14">
           Let us change the way you think about technology — we combine
           creativity, reliability, and innovation to help your business scale
           faster.

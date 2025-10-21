@@ -8,9 +8,9 @@ import {
 
 const HowItWorks = () => {
   return (
-    <section className="bg-[#0B0F19] w-full overflow-hidden md:px-20 py-20 flex flex-col justify-center items-center">
+    <section className="bg-white w-full overflow-hidden md:px-20 py-20 px-4 flex flex-col justify-center items-center">
       <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl capitalize font-bold mb-2 text-white">
+        <h2 className="text-4xl capitalize font-bold mb-2 text-gray-700">
           How It Works
         </h2>
         <p className="text-lg max-w-2xl mx-auto text-gray-400">
@@ -23,7 +23,7 @@ const HowItWorks = () => {
         {/* Step 1 */}
         <div className="flex flex-col items-start p-8 mt-10 rounded-2xl rounded-tr-none bg-gray-800 text-white hover:shadow-lg transition">
           <PiNumberSquareOneFill className="text-5xl text-orange-500 mb-4" />
-          <h4 className="text-xl font-semibold mb-2">Connect With Us</h4>
+          <h4 className="text-xl font-semibold mb-2">Connect With Us</h4>.
           <p className="text-gray-400">
             Join our network of innovators building the future of technology.
           </p>

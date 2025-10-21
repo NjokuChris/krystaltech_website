@@ -94,7 +94,7 @@ const NavBar = () => {
 
             {/* Mobile Menu */}
             {mobileMenu && (
-              <div className="md:hidden h-screen w-[100vw] mt-20 bg-black/20 backdrop-blur-md border-t border-white/10 absolute top-6 left-2">
+              <div className="md:hidden h-screen w-[100vw] mt-20 bg-black/20 backdrop-blur-md border-t border-white/10 absolute top-10 left-0">
                 {navItems.map((item) => (
                   <div key={item.name} className="border-b border-white/10">
                     <button
