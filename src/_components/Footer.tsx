@@ -151,16 +151,29 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-white/10 w-full h-20 flex justify-between items-center pl-100 pr-20">
-        <p>
+      <div className="bg-white/10 w-full h-30 md:h-20 flex flex-col-reverse md:flex-row justify-between items-center p-5 md:pl-100 md:pr-20">
+        <p className="font-bold">
           Copyright © {new Date().getFullYear()} krystalTechnologies, All rights
           reserved.
         </p>
-        <div className=" flex gap-3">
-          <a href="#">Term of use</a>
-          <a href="#">Cookie Policy</a>
-          <a href="#">Privacy Policy</a>
-        </div>
+
+        <ul className=" flex gap-3">
+          <li>
+            <a href="#" className="hover:text-orange-500 transition">
+              Term of use
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-orange-500 transition">
+              Cookie Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-orange-500 transition">
+              Privacy Policy
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
