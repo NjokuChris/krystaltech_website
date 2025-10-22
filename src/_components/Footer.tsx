@@ -9,7 +9,7 @@ import MapPreview from "./MapPreview";
 const Footer = () => {
   return (
     <footer
-      className="relative h-fit w-full flex flex-col justify-between items-between overflow-hidden bg-fixed bg-top bg-no-repeat shadow-2xl "
+      className="text-white dark:text-white relative h-fit w-full flex flex-col justify-between items-between overflow-hidden bg-fixed bg-top bg-no-repeat shadow-2xl "
       style={{
         backgroundImage: "url('/bg-1.jpg')",
       }}
@@ -81,7 +81,7 @@ const Footer = () => {
 
         {/* Solutions */}
         <div className="flex flex-col items-center md:items-start">
-          <h3 className="text-white font-semibold mb-4">Solutions</h3>
+          <h3 className=" font-semibold mb-4">Solutions</h3>
           <ul className="space-y-2">
             <li>
               <a
@@ -120,7 +120,7 @@ const Footer = () => {
 
         {/* Support */}
         <div className="flex flex-col items-center md:items-start">
-          <h3 className="text-white font-semibold mb-4">Support</h3>
+          <h3 className=" font-semibold mb-4">Support</h3>
           <ul className="space-y-2">
             <li>
               <a href="/help" className="hover:text-orange-500 transition">
@@ -151,7 +151,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-white/10 w-full h-30 md:h-20 flex flex-col-reverse md:flex-row justify-between items-center p-5 md:pl-100 md:pr-20">
+      <div className="bg-white/10 w-full h-30 md:h-20 flex flex-col-reverse md:flex-row justify-between items-center text-center p-5 md:pl-100 md:pr-20">
         <p className="font-bold">
           Copyright © {new Date().getFullYear()} krystalTechnologies, All rights
           reserved.

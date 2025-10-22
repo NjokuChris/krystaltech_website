@@ -23,7 +23,6 @@ const NavBar = () => {
     { name: "Home", links: ["Overview", "Updates", "Get Started"] },
     { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
     { name: "Page", links: ["About", "Contact", "FAQ"] },
-    { name: "Shop", links: ["Products", "Cart", "Checkout"] },
     { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
   ];
   return (
@@ -49,7 +48,7 @@ const NavBar = () => {
           </div>
           <nav className="md:w-[40%] text-white text-md font-bold">
             {/* Desktop Nav */}
-            <ul className="hidden md:flex justify-between ">
+            <ul className="hidden md:flex justify-between items-center ">
               {navItems.map((item) => (
                 <li key={item.name} className="relative group">
                   <button
@@ -81,7 +80,16 @@ const NavBar = () => {
                     </div>
                   )}
                 </li>
-              ))}
+              ))}{" "}
+              <li>
+                {" "}
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-black hover:text-orange-600 "
+                >
+                  Contact Us
+                </a>
+              </li>
             </ul>
 
             {/* Mobile Menu Toggle */}

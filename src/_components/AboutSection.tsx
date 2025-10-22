@@ -73,7 +73,7 @@ const AboutSection = () => {
             </li>
           </ul>
         </div>
-        <button className="flex justify-center items-center gap-2 w-fit bg-orange-600 text-white px-7 py-3 text-xl rounded-lg hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all">
+        <button className="flex justify-center items-center gap-2 w-fit bg-orange-600 text-white px-7 py-3 text-xl rounded-lg hover:from-orange-500 hover:to-orange-400 hover:scale-110 shadow-md hover:shadow-orange-400/40 transition-all">
           Reach Out <FaArrowRight />
         </button>
       </div>

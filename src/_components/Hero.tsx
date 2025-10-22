@@ -69,7 +69,7 @@ const Hero = () => {
           <div className="hidden md:flex mx-5 justify-end pointer-events-auto">
             <Link
               href="mailto:support@krystaltechhub.com"
-              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-6 py-3 rounded-b-full transform rotate-90 origin-right shadow-lg hover:shadow-orange-200/50 transition-all"
+              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-7 py-4 rounded-b-full transform rotate-90 origin-right  hover:shadow-orange-200/50 transition-all"
             >
               Support@krystaltechhub.com
             </Link>

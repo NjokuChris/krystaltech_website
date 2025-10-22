@@ -30,7 +30,6 @@ const MainNav = () => {
     { name: "Home", links: ["Overview", "Updates", "Get Started"] },
     { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
     { name: "Page", links: ["About", "Contact", "FAQ"] },
-    { name: "Shop", links: ["Products", "Cart", "Checkout"] },
     { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
   ];
 
@@ -52,7 +51,7 @@ const MainNav = () => {
           />
         </div>
 
-        <ul className="hidden md:flex justify-between md:w-[40%] text-black text-md font-bold ">
+        <ul className="hidden md:flex justify-between items-center md:w-[40%] text-black text-md font-bold ">
           {navItems.map((item) => (
             <li key={item.name} className="relative group">
               <button
@@ -85,6 +84,15 @@ const MainNav = () => {
               )}
             </li>
           ))}
+          <li>
+            {" "}
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm hover:text-orange-600 "
+            >
+              Contact Us
+            </a>
+          </li>
         </ul>
 
         <button className="hidden md:flex bg-orange-500 text-white px-7 py-3 text-xl rounded-lg hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all">

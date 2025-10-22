@@ -12,7 +12,7 @@ const NextServices = () => {
   return (
     <section className=" bg-orange-50 w-full min-h-screen flex flex-col justify-center items-center overflow-hidden py-20">
       <div className="w-[90vw] md:w-[80vw]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-8">
           {/* Graphic Design */}
           <div className="card bg-gradient-to-br from-[#1E293B] to-[#334155] p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-orange-500/20 transition-all duration-300 flex flex-col gap-4">
             <FaPalette size={30} className="text-orange-400" />

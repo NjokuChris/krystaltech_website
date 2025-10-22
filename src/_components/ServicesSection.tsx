@@ -92,7 +92,7 @@ const ServicesSection = () => {
             alt="a pc setup"
             width={500}
             height={500}
-            className="w-full max-w-[450px] h-auto object-contain"
+            className="w-full max-w-[450px] h-auto object-contain hover:scale-110 transition-all"
           />
         </div>
       </div>

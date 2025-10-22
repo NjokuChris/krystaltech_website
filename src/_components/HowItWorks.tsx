@@ -23,7 +23,7 @@ const HowItWorks = () => {
         {/* Step 1 */}
         <div className="flex flex-col items-start p-8 mt-10 rounded-2xl rounded-tr-none bg-gray-800 text-white hover:shadow-lg transition">
           <PiNumberSquareOneFill className="text-5xl text-orange-500 mb-4" />
-          <h4 className="text-xl font-semibold mb-2">Connect With Us</h4>.
+          <h4 className="text-xl font-semibold mb-2">Connect With Us</h4>
           <p className="text-gray-400">
             Join our network of innovators building the future of technology.
           </p>
