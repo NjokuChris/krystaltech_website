@@ -1,8 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
+import Link from "next/link";
 
 
 export default async function PostsPage() {
-    const posts = await prisma.post.findMany();
+    const posts = await db.post.findMany();
 
     return (
         <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
@@ -10,8 +11,10 @@ export default async function PostsPage() {
             <ul>
                 {posts.map((post) => (
                     <li key={post.id}>
-                        <h2>{post.title}</h2>
-                        <p>{post.content}</p>
+                        <Link href={`/posts/${post.id}`}>
+                            {post.title}
+                        </Link>
+
                     </li>
                 ))}
             </ul>
