@@ -14,7 +14,7 @@ const Footer = () => {
         backgroundImage: "url('/bg-1.jpg')",
       }}
     >
-      <div className="bg-orange-100 w-100 h-120 rounded-4xl absolute z-0 transform rotate-45 -top-30 md:-top-20 -left-23 shadow-2xl "></div>
+      <div className="bg-orange-100 w-100 h-120 rounded-4xl absolute z-0 transform rotate-45 -top-30 md:-top-20 -left-26 shadow-2xl "></div>
       <div className="px-6 md:px-20 py-10 z-1 flex flex-col md:flex-row md:justify-between justify-center items-center md:items-start flex-wrap gap-10 my-10 text-center md:text-left">
         {/* Logo + Socials */}
         <div className="w-full md:w-auto flex flex-col justify-center md:justify-start items-center md:items-start">

@@ -17,7 +17,7 @@ const Hero = () => {
         {/* Hero Content */}
         <div className="flex justify-center w-full h-full px-10 mt-35 md:mt-0">
           <div className="w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
-            <h1 className="text-7xl md:text-8xl font-bold font-sans w-[40vw] mt-10">
+            <h1 className="text-7xl md:text-7xl font-bold font-sans w-[40vw] mt-40">
               Innovative Tech Solutions
             </h1>
             <p className="text-xl font-sans max-w-md">
