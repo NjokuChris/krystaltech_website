@@ -87,7 +87,7 @@ const MainNav = () => {
           <li>
             {" "}
             <a
-              href="#"
+              href="/contact"
               className="block px-4 py-2 text-sm hover:text-orange-600 "
             >
               Contact Us
