@@ -6,22 +6,18 @@ import NavBar from "@/_components/NavBar";
 const Hero = () => {
   return (
     <>
-      {" "}
       <section
-        className="relative h-screen w-full flex flex-col justify-start items-center overflow-hidden  bg-cover bg-top bg-no-repeat"
+        className="relative pb-20 h-fit w-full flex flex-col justify-start items-center overflow-x-hidden bg-cover bg-top bg-no-repeat"
         style={{
           backgroundImage: "url('/hero-image.jpg')",
         }}
       >
         <NavBar />
 
-        {/* 📩 Fixed Vertical Email Button */}
-
-        {/* 🌟 Hero Content */}
-        <div className="flex justify-center w-full h-full px-10">
-          {" "}
-          <div className=" w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
-            <h1 className="text-8xl font-bold font-sans w-[40vw]">
+        {/* Hero Content */}
+        <div className="flex justify-center w-full h-full px-10 mt-35 md:mt-0">
+          <div className="w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
+            <h1 className="text-7xl md:text-7xl font-bold font-sans w-[40vw] mt-40">
               Innovative Tech Solutions
             </h1>
             <p className="text-xl font-sans max-w-md">
@@ -32,24 +28,54 @@ const Hero = () => {
               Get started
             </button>
           </div>
-          <div className="w-[27vw] h-full "></div>
+          <div className="w-[27vw] h-full"></div>
         </div>
-      </section>{" "}
-      <div className="absolute top-0 h-screen w-[98vw] flex justify-between items-center px-[1vw]">
-        {" "}
-        <div className="hidden md:block w-fit h-fit text-white px-7 py-4 text-md font-bold rounded-t-full transform rotate-90  translate-y-1/2 origin-left transition-all">
-          {" "}
-          <Link href="face ">Facebook</Link>
-          <Link href="face">X (twitter)</Link>
-          <Link href="face">Instagram</Link>
-        </div>{" "}
-        <Link
-          href="mailto:support@krystaltechhub.com"
-          className="hidden md:block w-fit h-fit bg-orange-500 text-white px-7 py-4 text-md font-bold rounded-b-full transform rotate-90  translate-y-1/2 origin-right hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all"
-        >
-          Support@krystaltechhub.com
-        </Link>{" "}
-      </div>
+
+        {/* Overlay with social links and email */}
+        <div className="absolute top-0 left-0 h-fit w-full mt-[50vh] -px-4 flex justify-between items-center pointer-events-none">
+          {/* Left Social Links */}
+          <div className="hidden md:flex flex-col gap-6 text-white mt-40 font-semibold pointer-events-auto">
+            <div className="px-5 py-10 mx-10 rounded-t-full transform -rotate-90 origin-left">
+              <div className="flex gap-12 text-md">
+                <Link
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orange-400 transition"
+                >
+                  Facebook
+                </Link>
+                <Link
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orange-400 transition"
+                >
+                  X (Twitter)
+                </Link>
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orange-400 transition"
+                >
+                  Instagram
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Support Mail */}
+          <div className="hidden md:flex mx-5 justify-end pointer-events-auto">
+            <Link
+              href="mailto:support@krystaltechhub.com"
+              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-7 py-4 rounded-b-full transform rotate-90 origin-right  hover:shadow-orange-200/50 transition-all"
+            >
+              Support@krystaltechhub.com
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
