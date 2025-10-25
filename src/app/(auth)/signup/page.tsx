@@ -4,16 +4,48 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "@/lib/validation";
 import * as z from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 type SignupData = z.infer<typeof signupSchema>;
 
 export default function SignupPage() {
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
   });
+
+  // Client-side token check
+  useEffect(() => {
+    const checkLogin = async () => {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1];
+
+      if (!token) {
+        router.replace("/login"); // redirect if no token
+      } else {
+        // Optional: verify token with backend
+        try {
+          const res = await fetch("/api/verify-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+          if (!res.ok) {
+            router.replace("/login");
+          }
+        } catch {
+          router.replace("/login");
+        }
+      }
+    };
+
+    checkLogin();
+  }, [router]);
 
   const onSubmit = async (data: SignupData) => {
     const res = await fetch("/api/signup", {
