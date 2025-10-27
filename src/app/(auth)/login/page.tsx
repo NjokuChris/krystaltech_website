@@ -28,7 +28,7 @@ export default function LoginPage() {
     setMessage(result.message);
 
     if (res.ok) {
-      router.push("/dashboard");
+      router.push("/admin/dashboard");
     }
   };
 
@@ -37,7 +37,7 @@ export default function LoginPage() {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label>Username</label>
+          <label>username</label>
           <input {...form.register("username")} className="border p-2 w-full" />
         </div>
 
