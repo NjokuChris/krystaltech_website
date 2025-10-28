@@ -48,7 +48,7 @@ const FormComp = () => {
 
           <div className="flex flex-col w-full">
             <label htmlFor="company" className="mb-1 font-medium">
-              Company Name
+              Company Name (optional)
             </label>
             <input
               id="company"

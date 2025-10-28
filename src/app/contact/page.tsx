@@ -46,8 +46,10 @@ const Page = () => {
               <div className="bg-white p-6 rounded-full hover:animate-bounce">
                 <PiMapPinFill className="text-orange-600 text-4xl" />{" "}
               </div>{" "}
-              <p>54 Old refinary Road, portharcourt, rivers state ,Nigeria</p>
-              <p className="text-sm font-bold">Our Office</p>
+              <p className="text-white">
+                54 Old refinary Road, portharcourt, rivers state ,Nigeria
+              </p>
+              <p className="text-sm font-bold text-white">Our Office</p>
             </li>
 
             <li className="flex flex-col justify-center items-center gap-2">
