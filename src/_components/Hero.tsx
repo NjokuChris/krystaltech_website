@@ -15,7 +15,7 @@ const Hero = () => {
         <NavBar />
 
         {/* Hero Content */}
-        <div className="flex justify-center w-full h-full px-10 mt-35 md:mt-0">
+        <div className="flex justify-center w-full h-[80vh] px-10 mt-35 md:mt-0">
           <div className="w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
             <h1 className="text-7xl md:text-7xl font-bold font-sans w-[40vw] mt-40">
               Innovative Tech Solutions
