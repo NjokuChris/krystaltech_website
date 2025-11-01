@@ -16,7 +16,7 @@ async function verifyToken(token?: string | null) {
       // algorithms: ["HS256"]
     });
     return true;
-  } catch (err) {
+  } catch (_err) {
     // optionally console.error(err);
     return false;
   }

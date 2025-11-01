@@ -14,14 +14,14 @@ const AboutSection = () => {
       <div className="flex justify-end items-start w-full md:w-[50%] pr-40">
         <div className="w-fit ml-auto mt-5 md:mt-0">
           <Image
-            src="/the-dev.jpg"
+            src="/software-developer.jpg"
             alt="man from krystal tech"
             width={500}
             height={500}
             className="rounded"
           />{" "}
           <Image
-            src="/our-man.jpg"
+            src="/Njoku_chris.jpg"
             alt="man from krystal tech"
             width={300}
             height={300}
