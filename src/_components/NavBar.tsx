@@ -37,7 +37,7 @@ const NavBar = () => {
     <>
       <header className="w-full flex flex-col justify-center items-center fixed -top-0 md:relative z-50 ">
         <div className="w-full lg:w-[90%] 2xl:w-[90%] flex flex-col justify-center items-center">
-          <div className="w-full flex gap-20 py-2 px-[5%] md:border-x-6 md:border-orange-600 md:rounded-t-full bg-gray-900 ">
+          <div className="w-full flex flex-col md:flex-row md:gap-20 py-2 px-[5%] md:border-x-6 md:border-orange-600 md:rounded-t-full bg-gray-900 ">
             <p className="flex gap-2 w-fit justify-center items-center">
               {" "}
               <FaFire className="text-orange-600" />{" "}
