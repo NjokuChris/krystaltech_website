@@ -1,0 +1,14 @@
+# Ignore build and environment folders
+.next
+node_modules
+dist
+build
+
+# Ignore Prisma generated code
+src/generated/
+prisma/
+
+# Optional: ignore Chart.js if you’re not using it yet
+chart.js
+react-chartjs-2
+

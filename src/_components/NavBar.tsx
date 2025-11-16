@@ -28,7 +28,7 @@ const NavBar = () => {
     setShowForm((prev) => !prev);
   };
   const navItems = [
-    { name: "Home", links: ["Overview", "Updates", "Get Started"] },
+    { name: "Home", links: ["Overview", "Updates", "Get In Touch"] },
     { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
     { name: "Page", links: ["About", "Contact", "FAQ"] },
     { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
@@ -156,7 +156,7 @@ const NavBar = () => {
               onClick={handleShowForm}
               className="hidden md:flex bg-orange-500 text-white px-7 py-3 text-xl rounded-3xl rounded-br-full hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all"
             >
-              Get started
+              Get In Touch
             </button>
           </div>
         </div>

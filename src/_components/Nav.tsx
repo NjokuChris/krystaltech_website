@@ -12,7 +12,7 @@ const Nav = () => {
   };
 
   const navItems = [
-    { name: "Home", links: ["Overview", "Updates", "Get Started"] },
+    { name: "Home", links: ["Overview", "Updates", "Get in Touch"] },
     { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
     { name: "Page", links: ["About", "Contact", "FAQ"] },
     { name: "Shop", links: ["Products", "Cart", "Checkout"] },
