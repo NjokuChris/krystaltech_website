@@ -17,7 +17,7 @@ const MapPreview: React.FC = () => {
           loading="lazy"
           allowFullScreen
           className="w-full h-full"
-          title="Map preview — 54 Old Factory Road, Elelenwo, Port Harcourt"
+          title="Map preview - 54 Old Factory Road, Elelenwo, Port Harcourt"
         ></iframe>
       </a>
     </div>

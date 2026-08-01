@@ -1,8 +1,9 @@
 import React from "react";
 
 //components
+import NavBar from "@/_components/NavBar";
 import Hero from "@/_components/Hero";
-import Stats from "@/_components/Stats";
+import Stats from "@/_components/programs";
 import AboutSection from "@/_components/AboutSection";
 import ServicesSection from "@/_components/ServicesSection";
 import NextServices from "@/_components/NextServices";
@@ -13,15 +14,17 @@ import OurWork from "@/_components/OurWorks";
 import Extra from "@/_components/Extra";
 import PreFooter from "@/_components/PreFooter";
 import Footer from "@/_components/Footer";
+import Happeningnow from "@/_components/Happeningnow";
 
 const LandingPage = () => {
   return (
     <main className="font-sans  ">
+      <NavBar />
       <Hero />
+      <Happeningnow />
       <Stats />
-      <AboutSection />
       <ServicesSection />
-      <NextServices />
+      <AboutSection />
       <HowItWorks />
       <Testimonial />
       <WhyChooseUs />

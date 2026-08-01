@@ -1,0 +1,101 @@
+
+> krystaltech_website@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use by process 5128, using available port 3001 instead.
+   ▲ Next.js 15.5.6 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.146.156:3001
+
+ ✓ Starting...
+ ○ Compiling middleware ...
+ ✓ Compiled middleware in 894ms
+ ✓ Ready in 6.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 20.5s
+ GET / 200 in 27117ms
+ GET / 200 in 7700ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1834ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 2528ms
+ ○ Compiling / ...
+ ✓ Compiled in 13.9s
+ ⚠ Fast Refresh had to perform a full reload when ./src/_components/Hero.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled / in 1311ms
+ GET / 200 in 6886ms
+ GET / 200 in 17919ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 835ms
+ ✓ Compiled in 1876ms
+ GET / 200 in 3659ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 563ms
+ GET / 200 in 1495ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 749ms
+ ✓ Compiled in 802ms
+ GET / 200 in 3419ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 778ms
+ GET /favicon.ico 200 in 800ms
+ GET / 200 in 2858ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 556ms
+ ✓ Compiled in 162ms
+ GET / 200 in 3285ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 708ms
+ ✓ Compiled in 726ms
+ ✓ Compiled in 692ms
+ ⨯ [Error: Image with src "https://loremflickr.com/420/560/kid,laptop?lock=21" is missing required "width" property.] {
+  digest: '2023045130'
+}
+ GET / 500 in 4061ms
+ GET /favicon.ico 200 in 1390ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 1440ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 739ms
+ ⨯ [Error: Invalid src prop (https://loremflickr.com/420/560/kid,laptop?lock=21) on `next/image`, hostname "loremflickr.com" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host] {
+  digest: '3607352'
+}
+ GET / 500 in 2445ms
+ GET /favicon.ico 200 in 623ms
+ ✓ Compiled in 1092ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 2755ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 552ms
+ ✓ Compiled in 1007ms
+ GET / 200 in 2605ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 787ms
+ GET / 200 in 941ms
+ GET /favicon.ico 200 in 1412ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 1213ms
+ ✓ Compiled in 551ms
+ GET / 200 in 2556ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 491ms
+ ✓ Compiled in 273ms
+ GET / 200 in 3362ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 514ms
+ ✓ Compiled in 372ms
+ GET / 200 in 2652ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 534ms
+ GET / 200 in 1939ms
+ GET /favicon.ico 200 in 665ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 672ms
+ ✓ Compiled in 354ms
+ GET / 200 in 3680ms
+ GET /favicon.ico 200 in 671ms
+ GET / 200 in 1179ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 480ms
+ ✓ Compiled in 352ms
+ GET / 200 in 4557ms
+ GET /favicon.ico 200 in 566ms
+ GET / 200 in 2068ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 520ms
+ GET / 200 in 2813ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 604ms
+ ✓ Compiled in 378ms
+ ✓ Compiled in 762ms
+ ○ Compiling / ...
+ ✓ Compiled in 2.2s
+ ✓ Compiled / in 1417ms
+ GET / 200 in 4184ms
+ GET / 200 in 4248ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 751ms
+ GET / 200 in 2536ms
+ GET /favicon.ico?favicon.2dc1c05e.ico 200 in 890ms

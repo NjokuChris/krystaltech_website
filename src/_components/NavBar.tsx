@@ -1,172 +1,138 @@
 "use client";
-import { useState } from "react";
 
-//from next
+/**
+ * NavBar - Krystal Tech Hub
+ * ------------------------------------------------------------
+ * Clean, minimal top navigation matching the site design system:
+ *   - #F3F1EA sand background, #11142B ink, #FFB627 amber accent
+ *   - Logo left, simple text links center, pill CTA right
+ *   - Framer Motion entrance + animated mobile sheet
+ *   - Subtle bottom border + blur that appear once you scroll
+ *
+ * SETUP: npm install framer-motion react-icons
+ * Point the links and the CTA at your real routes.
+ */
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
-//components
-//import Nav from "@/_components/Nav";
-
-//icons
-import { FaFire } from "react-icons/fa6";
-
-import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
-import FormComp from "./FormComp";
-import { FaMailBulk } from "react-icons/fa";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
 
-const NavBar = () => {
-  const [openDropdown, setOpenDropdownn] = useState<string | null>(null);
-  const [mobileMenu, setMobileMenu] = useState(false);
+const NAV_LINKS = [
+  { label: "Programs", href: "/programs" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
-  const toggleDropdownn = (name: string) => {
-    setOpenDropdownn(openDropdown === name ? null : name);
-  };
+export default function NavBar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [showForm, setShowForm] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const handleShowForm = () => {
-    setShowForm((prev) => !prev);
-  };
-  const navItems = [
-    { name: "Home", links: ["Overview", "Updates", "Get In Touch"] },
-    { name: "Services", links: ["Web Design", "Mobile Apps", "SEO"] },
-    { name: "Page", links: ["About", "Contact", "FAQ"] },
-    { name: "Blog", links: ["Latest Posts", "Tutorials", "News"] },
-  ];
   return (
-    <>
-      <header className="w-full flex flex-col justify-center items-center fixed -top-0 md:relative z-50 ">
-        <div className="w-full lg:w-[90%] 2xl:w-[90%] flex flex-col justify-center items-center">
-          <div className="w-full flex flex-col md:flex-row md:gap-20 py-2 px-[5%] md:border-x-6 md:border-orange-600 md:rounded-t-full bg-gray-900 ">
-            <p className="flex gap-2 w-fit justify-center items-center">
-              {" "}
-              <FaFire className="text-orange-600" />{" "}
-              <span className="text-white dark:text-white">
-                <span className="font-bold">Hot Line:</span> +234 806 244 2682
-              </span>
-            </p>
-            <p className="flex gap-2 w-fit justify-center items-center">
-              {" "}
-              <FaMailBulk className="text-orange-600" />{" "}
-              <span className="text-white dark:text-white">
-                <span className="font-bold">Quick mail:</span>{" "}
-                support@krystaltechhub.com
-              </span>
-            </p>
-          </div>
-          <div className="h-25 w-full md:w-[90%] md:rounded-b-[80px] bg-white p-8 flex justify-between items-center shadow-2xl ">
-            <div>
-              <Image
-                src="/krystal4.png"
-                alt="krystal tech hub logo"
-                width={185}
-                height={85}
-              />
-            </div>
-            <nav className="md:w-[40%] text-white text-md font-bold">
-              {/* Desktop Nav */}
-              <ul className="hidden md:flex justify-between items-center ">
-                {navItems.map((item) => (
-                  <li key={item.name} className="relative group">
-                    <button
-                      onClick={() => toggleDropdownn(item.name)}
-                      className="flex items-center text-gray-700 space-x-1 hover:text-orange-600"
-                    >
-                      <span className="text-black hover:text-orange-600">
-                        {item.name}
-                      </span>
-                      <FiChevronDown
-                        className={`transition-transform  duration-200 ${
-                          openDropdown === item.name ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
+    <motion.header
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`sticky top-0 z-50 w-full transition-colors duration-300 ${
+        scrolled
+          ? "border-b border-[#11142B]/10 bg-[#F3F1EA]/80 backdrop-blur-md"
+          : "border-b border-transparent bg-[#F3F1EA]"
+      }`}
+    >
+      <nav className="mx-auto flex h-20 w-full max-w-[1400px] items-center justify-between px-5 md:px-10">
+        {/* logo */}
+        <Link href="/" className="flex shrink-0 items-center">
+          <Image
+            src="/krystal4.png"
+            alt="Krystal Technologies"
+            width={170}
+            height={64}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
+        </Link>
 
-                    {/* Dropdown */}
-                    {openDropdown === item.name && (
-                      <div className="absolute top-full left-0 mt-2 w-40 bg-black/70 backdrop-blur-md rounded-lg shadow-lg py-2">
-                        {item.links.map((link) => (
-                          <Link
-                            key={link}
-                            href="/#"
-                            className="block px-4 py-2 text-sm hover:bg-white/10"
-                          >
-                            {link}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </li>
-                ))}{" "}
-                <li>
-                  {" "}
-                  <a
-                    href="/contact"
-                    className="block px-4 py-2 text-sm text-black hover:text-orange-600 "
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-
-              {/* Mobile Menu Toggle */}
-              <button
-                onClick={() => setMobileMenu(!mobileMenu)}
-                className="text-orange-600 font-bold text-4xl md:hidden"
+        {/* desktop links */}
+        <ul className="hidden items-center gap-7 md:flex lg:gap-9">
+          {NAV_LINKS.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                className="group relative text-sm font-medium text-[#11142B]/70 transition-colors hover:text-[#11142B]"
               >
-                {mobileMenu ? <FiX /> : <FiMenu />}
-              </button>
+                {item.label}
+                <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-[#FFB627] transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-              {/* Mobile Menu */}
-              {mobileMenu && (
-                <div className="md:hidden h-screen w-[100vw] mt-20 bg-black/20 backdrop-blur-md border-t border-white/10 absolute top-10 left-0">
-                  {navItems.map((item) => (
-                    <div key={item.name} className="border-b border-white/10">
-                      <button
-                        onClick={() => toggleDropdownn(item.name)}
-                        className="w-full flex items-center justify-between px-6 py-3 text-white"
-                      >
-                        <span>{item.name}</span>
-                        <FiChevronDown
-                          className={`transition-transform duration-200 ${
-                            openDropdown === item.name ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
+        {/* desktop CTA */}
+        <motion.a
+          href="/contact"
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="hidden items-center gap-2 rounded-full bg-[#11142B] px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-[#11142B]/10 transition-shadow hover:shadow-[#11142B]/25 md:flex"
+        >
+          Get in touch <FiArrowRight className="text-xs" />
+        </motion.a>
 
-                      {openDropdown === item.name && (
-                        <div className="bg-black/60">
-                          {item.links.map((link) => (
-                            <a
-                              key={link}
-                              href="#"
-                              className="block px-10 py-2 text-sm text-gray-200 hover:bg-white/10"
-                            >
-                              {link}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </nav>
-            <button
-              onClick={handleShowForm}
-              className="hidden md:flex bg-orange-500 text-white px-7 py-3 text-xl rounded-3xl rounded-br-full hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all"
-            >
-              Get In Touch
-            </button>
-          </div>
-        </div>
-      </header>
+        {/* mobile toggle */}
+        <button
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-label="Toggle menu"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-2xl text-[#11142B] transition-colors hover:bg-[#11142B]/5 md:hidden"
+        >
+          {mobileOpen ? <FiX /> : <FiMenu />}
+        </button>
+      </nav>
 
-      <div className="w-full flex justify-end z-20 absolute pt-40">
-        <div className="w-[50%] ">{showForm && <FormComp />}</div>
-      </div>
-    </>
+      {/* mobile sheet */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-[#11142B]/10 bg-[#F3F1EA] md:hidden"
+          >
+            <ul className="flex flex-col px-5 py-4">
+              {NAV_LINKS.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-xl px-3 py-3 text-base font-medium text-[#11142B]/80 transition-colors hover:bg-[#11142B]/5 hover:text-[#11142B]"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="mt-2">
+                <a
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#11142B] px-6 py-3 text-sm font-semibold text-white"
+                >
+                  Get in touch <FiArrowRight className="text-xs" />
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
-};
-
-export default NavBar;
+}

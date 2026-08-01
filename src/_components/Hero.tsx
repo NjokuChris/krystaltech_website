@@ -1,83 +1,239 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import NavBar from "@/_components/NavBar";
 
-const Hero = () => {
-  return (
-    <>
-      <section
-        className="relative pb-20 h-fit w-full flex flex-col justify-start items-center overflow-x-hidden bg-cover bg-top bg-no-repeat"
-        style={{
-          backgroundImage: "url('/hero-image.jpg')",
-        }}
-      >
-        <NavBar />
+/**
+ * TechHubHero - Krystal Tech Hub landing hero
+ * ------------------------------------------------------------
+ * Stack: Next.js (App Router) + TypeScript + Tailwind + Framer Motion
+ * Layout modeled on a centered headline + fanned photo-card row,
+ * with an underline swipe under the headline and a pill CTA
+ * sitting below the card row.
+ *
+ * DESIGN NOTE ON IMAGES
+ * The cards use generic stock photos (kids typing, coding, at
+ * computers) from Pexels, just plain photos, no text/labels on them.
+ * Six show on mobile, eight on desktop. Swap each `photo` URL in CARDS
+ * for a real photo of your own students (with parental consent) when
+ * ready, same img tag, same frame, same animation.
+ *
+ * SETUP
+ * npm install framer-motion
+ * Optional: load real fonts via next/font, e.g.
+ *   import { Space_Grotesk } from 'next/font/google'
+ */
 
-        {/* Hero Content */}
-        <div className="flex justify-center w-full h-[80vh] px-10 mt-35 md:mt-0">
-          <div className="w-full md:w-[50%] flex flex-col justify-center items-start text-left text-white space-y-4">
-            <h1 className="text-7xl md:text-7xl font-bold font-sans w-[40vw] mt-40">
-              Innovative Tech Solutions
-            </h1>
-            <p className="text-xl font-sans max-w-md">
-              We help businesses and individuals to innovate and grow their
-              business through cutting-edge technology solutions.
-            </p>
-            <button className="bg-orange-500 text-white px-8 py-4 rounded-lg hover:from-orange-500 hover:to-orange-400 shadow-md hover:shadow-orange-400/40 transition-all">
-              Get started
-            </button>
-          </div>
-          <div className="w-[27vw] h-full"></div>
-        </div>
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-        {/* Overlay with social links and email */}
-        <div className="absolute top-0 left-0 h-fit w-full mt-[50vh] -px-4 flex justify-between items-center pointer-events-none">
-          {/* Left Social Links */}
-          <div className="hidden md:flex flex-col gap-6 text-white mt-40 font-semibold pointer-events-auto">
-            <div className="px-5 py-10 mx-10 rounded-t-full transform -rotate-90 origin-left">
-              <div className="flex gap-12 text-md">
-                <Link
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-orange-400 transition"
-                >
-                  Facebook
-                </Link>
-                <Link
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-orange-400 transition"
-                >
-                  X (Twitter)
-                </Link>
-                <Link
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-orange-400 transition"
-                >
-                  Instagram
-                </Link>
-              </div>
-            </div>
-          </div>
+// ---------------------------------------------------------------
+// Content
+// ---------------------------------------------------------------
 
-          {/* Right Support Mail */}
-          <div className="hidden md:flex mx-5 justify-end pointer-events-auto">
-            <Link
-              href="mailto:support@krystaltechhub.com"
-              className="bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold px-7 py-4 rounded-b-full transform rotate-90 origin-right  hover:shadow-orange-200/50 transition-all"
-            >
-              Support@krystaltechhub.com
-            </Link>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+type Pose = { rotate: number; x: number; y: number };
+
+type Card = {
+  photo: string;
+  mobile: Pose; // resting pose in the 6-up mobile fan
+  desktop: Pose; // resting pose in the 8-up desktop fan
+  desktopOnly?: boolean; // the two extra cards, hidden below md
 };
 
-export default Hero;
+// Six cards render on mobile, all eight on desktop. The two
+// desktopOnly cards sit on the outer edges of the wider desktop fan.
+const CARDS: Card[] = [
+  {
+    photo: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+    mobile: { rotate: -15, x: -360, y: 40 },
+    desktop: { rotate: -16, x: -430, y: 44 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg",
+    mobile: { rotate: -9, x: -216, y: 16 },
+    desktop: { rotate: -11, x: -307, y: 20 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg",
+    mobile: { rotate: -3, x: -72, y: -6 },
+    desktop: { rotate: -6, x: -184, y: 2 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg",
+    mobile: { rotate: 3, x: 72, y: -6 },
+    desktop: { rotate: -2, x: -61, y: -8 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg",
+    mobile: { rotate: 9, x: 216, y: 16 },
+    desktop: { rotate: 2, x: 61, y: -8 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/3862376/pexels-photo-3862376.jpeg",
+    mobile: { rotate: 15, x: 360, y: 40 },
+    desktop: { rotate: 6, x: 184, y: 2 },
+  },
+  {
+    photo: "https://images.pexels.com/photos/8500352/pexels-photo-8500352.jpeg",
+    mobile: { rotate: 0, x: 0, y: 0 },
+    desktop: { rotate: 11, x: 307, y: 20 },
+    desktopOnly: true,
+  },
+  {
+    photo: "https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg",
+    mobile: { rotate: 0, x: 0, y: 0 },
+    desktop: { rotate: 16, x: 430, y: 44 },
+    desktopOnly: true,
+  },
+];
+
+// ---------------------------------------------------------------
+// Hand-drawn underline swipe under the headline
+// ---------------------------------------------------------------
+
+function UnderlineSwipe() {
+  return (
+    <svg
+      viewBox="0 0 300 20"
+      className="absolute -bottom-2 left-0 h-4 w-full"
+      preserveAspectRatio="none"
+    >
+      <motion.path
+        d="M4 12 C 80 18, 220 4, 296 10"
+        fill="none"
+        stroke="#FFB627"
+        strokeWidth={5}
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.7, delay: 0.6, ease: "easeInOut" }}
+      />
+    </svg>
+  );
+}
+
+// ---------------------------------------------------------------
+// One plain photo card in the fanned row
+// ---------------------------------------------------------------
+
+function PhotoCard({ c, index, pose }: { c: Card; index: number; pose: Pose }) {
+  return (
+    <motion.div
+      className={`absolute left-1/2 top-1/2 h-50 w-44 -translate-x-1/2 -translate-y-1/2 cursor-pointer overflow-hidden rounded-[28px] shadow-2xl sm:h-62 sm:w-52 ${
+        c.desktopOnly ? "hidden md:block" : ""
+      }`}
+      style={{ zIndex: index }}
+      initial={{ x: 0, y: 30, rotate: 0, opacity: 0, scale: 0.92 }}
+      animate={{
+        x: pose.x,
+        y: pose.y,
+        rotate: pose.rotate,
+        opacity: 1,
+        scale: 1,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 110,
+        damping: 15,
+        delay: 0.15 * index,
+      }}
+      whileHover={{
+        rotate: 0,
+        scale: 1.06,
+        y: pose.y - 16,
+        zIndex: 50,
+        transition: { type: "spring", stiffness: 300, damping: 18 },
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={c.photo}
+        alt=""
+        className="h-full w-full bg-[#e9e6dd] object-cover"
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).style.background = "#e9e6dd";
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ---------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------
+
+export default function TechHubHero() {
+  // Pick each card's resting pose by breakpoint: the desktop fan is
+  // wider (8 cards), the mobile fan tighter (6). md = 768px.
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return (
+    <section className="relative isolate overflow-hidden bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-5xl font-light leading-[1.05] tracking-tight text-[#11142B] sm:text-6xl lg:text-7xl"
+        >
+          We Train
+          <br />
+          <span className="relative uppercase inline-block font-bold">
+            the future
+            <UnderlineSwipe />
+          </span>
+        </motion.h1>
+
+        {/* fanned photo row: 6 cards on mobile, 8 on desktop */}
+        <div className="relative mt-10 h-72 w-full max-w-6xl sm:mt-10 sm:h-80">
+          {CARDS.map((c, i) => (
+            <PhotoCard
+              key={c.photo}
+              c={c}
+              index={i}
+              pose={isDesktop ? c.desktop : c.mobile}
+            />
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+          className="mt-8 max-w-md text-sm text-[#11142B]/60 font-medium sm:text-base"
+        >
+          We build future tech talent and premium software.
+          <br />
+          For ambitious people and growing businesses.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.15 }}
+          className="mt-6 flex flex-wrap items-center justify-center gap-4"
+        >
+          <motion.button
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl"
+          >
+            Reserve a seat
+          </motion.button>
+          <motion.button
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="rounded-full border border-[#11142B]/20 px-8 py-3 text-sm font-semibold text-[#11142B]"
+          >
+            See courses
+          </motion.button>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

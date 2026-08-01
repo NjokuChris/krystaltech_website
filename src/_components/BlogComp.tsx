@@ -1,23 +1,65 @@
-import React from "react";
+"use client";
 
-const BlogComp: React.FC = () => {
-  return (
-    <article
-      className="group min-w-[85%] sm:min-w-[60%] md:min-w-[35%] lg:min-w-[30%] xl:min-w-[25%] h-[60vw] sm:h-[45vw] md:h-[27vw] rounded-xl p-6 flex flex-col justify-between bg-cover bg-center relative snap-start transition-transform duration-300 hover:scale-105"
-      style={{
-        backgroundImage: "url('/people-poiting-up.png')",
-      }}
-    >
-      <div className="bg-orange-600 rounded w-[60px] h-[60px] flex flex-col justify-center items-center text-white text-sm font-semibold">
-        <p>05</p>
-        <p className="font-bold text-lg">May</p>
-      </div>
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
+import type { Post } from "./blogData";
 
-      <h3 className="capitalize text-white text-xl md:text-2xl font-bold group-hover:underline drop-shadow-lg">
-        We usually work for Website development, eCommerce
-      </h3>
-    </article>
-  );
+/**
+ * A single blog card. Clean sand-on-white look matching the rest of the
+ * site: image on top, category chip, title, excerpt, meta row.
+ */
+
+const categoryTint: Record<Post["category"], string> = {
+  "Tech Hub": "bg-[#2DD4BF]/15 text-[#0f766e]",
+  "Service Hub": "bg-[#FFB627]/20 text-[#92600a]",
+  Guides: "bg-[#11142B]/10 text-[#11142B]",
 };
 
-export default BlogComp;
+export default function BlogComp({ post }: { post: Post }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5 }}
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[#11142B]/8 bg-white"
+    >
+      <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
+        <div className="relative h-52 w-full overflow-hidden">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 360px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        <div className="flex flex-1 flex-col p-6">
+          <span
+            className={`w-fit rounded-full px-3 py-1 text-xs font-semibold ${categoryTint[post.category]}`}
+          >
+            {post.category}
+          </span>
+
+          <h3 className="mt-4 text-lg font-semibold leading-snug text-[#11142B] group-hover:text-[#92600a]">
+            {post.title}
+          </h3>
+
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-[#11142B]/60">
+            {post.excerpt}
+          </p>
+
+          <div className="mt-6 flex items-center justify-between border-t border-[#11142B]/8 pt-4 text-xs text-[#11142B]/50">
+            <span>
+              {post.date} · {post.readTime}
+            </span>
+            <FiArrowUpRight className="text-base text-[#11142B] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </div>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
