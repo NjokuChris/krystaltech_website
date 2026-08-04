@@ -1,11 +1,31 @@
 'use client';
-import { Bars3Icon, XMarkIcon, HomeIcon, TableCellsIcon, PencilIcon, BellIcon } from "@heroicons/react/24/outline";
+
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bars3Icon, XMarkIcon, HomeIcon, PencilSquareIcon, BellAlertIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 interface SidebarProps {
-  collapsed?: boolean; // desktop collapse
-  toggleCollapse?: () => void; // desktop toggle
-  mobileOpen?: boolean; // mobile open
-  setMobileOpen?: (val: boolean) => void; // mobile toggle
+  collapsed?: boolean;
+  toggleCollapse?: () => void;
+  mobileOpen?: boolean;
+  setMobileOpen?: (val: boolean) => void;
+}
+
+const baseMenuItems = [
+  { name: "Dashboard", icon: HomeIcon, href: "/admin/dashboard" },
+  { name: "Posts", icon: PencilSquareIcon, href: "/admin/dashboard/posts" },
+  { name: "Announcements", icon: BellAlertIcon, href: "/admin/dashboard/announcements" },
+];
+
+const superAdminItems = [
+  { name: "Users", icon: UsersIcon, href: "/admin/dashboard/users" },
+];
+
+function isActive(pathname: string, href: string) {
+  if (href === "/admin/dashboard") return pathname === href;
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export default function Sidebar({
@@ -14,70 +34,114 @@ export default function Sidebar({
   mobileOpen = false,
   setMobileOpen,
 }: SidebarProps) {
+  const pathname = usePathname();
+  const { user } = useCurrentUser();
+
   const menuItems = [
-    { name: "Dashboard", icon: <HomeIcon className="w-6 h-6" />, href: "/admin/dashboard" },
-    { name: "Tables", icon: <TableCellsIcon className="w-6 h-6" />, href: "/admin/dashboard/tables" },
-    { name: "Forms", icon: <PencilIcon className="w-6 h-6" />, href: "/admin/dashboard/forms" },
-    { name: "Notifications", icon: <BellIcon className="w-6 h-6" />, href: "/admin/dashboard/notifications" },
+    ...baseMenuItems,
+    ...(user?.role === "SUPER_ADMIN" ? superAdminItems : []),
   ];
+
+  const NavItems = ({ onNavigate }: { onNavigate?: () => void }) => (
+    <nav className="flex-1 space-y-1 px-3 py-4">
+      {menuItems.map(({ name, icon: Icon, href }) => {
+        const active = isActive(pathname, href);
+        return (
+          <Link
+            key={name}
+            href={href}
+            onClick={onNavigate}
+            className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+              active
+                ? "bg-white/10 text-white"
+                : "text-white/60 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            <span className="relative flex items-center">
+              {active && (
+                <span className="absolute -left-3 h-5 w-1 rounded-full bg-[#FFB627]" />
+              )}
+              <Icon className="h-5 w-5" />
+            </span>
+            <span className={collapsed ? "hidden" : "inline"}>{name}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+
+  const Brand = ({ showToggle }: { showToggle?: boolean }) => (
+    <div className="flex h-20 items-center justify-between border-b border-white/10 px-4">
+      <Link href="/admin/dashboard" className={collapsed && !showToggle ? "hidden" : "flex items-center"}>
+        <Image
+          src="/krystal4.png"
+          alt="Krystal"
+          width={160}
+          height={50}
+          className="h-8 w-auto brightness-0 invert"
+        />
+      </Link>
+      {showToggle && (
+        <button
+          className="rounded-lg p-2 text-white/70 hover:bg-white/10 hover:text-white"
+          onClick={toggleCollapse}
+          aria-label="Collapse sidebar"
+        >
+          <Bars3Icon className="h-5 w-5" />
+        </button>
+      )}
+    </div>
+  );
 
   return (
     <>
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden md:flex flex-col h-full bg-blue-900 text-white transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
+        className={`hidden h-full flex-col bg-[#11142B] transition-all duration-300 md:flex ${
+          collapsed ? "w-20" : "w-64"
+        }`}
       >
-        <div className="flex items-center justify-between h-20 border-b border-blue-700 px-2">
-          <span className={`text-xl font-bold ${collapsed ? "hidden" : "block"}`}>Admin</span>
-          <button className="p-2 hover:bg-blue-800 rounded" onClick={toggleCollapse}>
-            <Bars3Icon className="w-6 h-6" />
-          </button>
+        <Brand showToggle />
+        <NavItems />
+        <div className="border-t border-white/10 px-3 py-4">
+          <Link
+            href="/"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-white/50 transition-colors hover:bg-white/5 hover:text-white"
+          >
+            <HomeIcon className="h-5 w-5" />
+            <span className={collapsed ? "hidden" : "inline"}>View site</span>
+          </Link>
         </div>
-        <nav className="flex-1 px-2 py-4 space-y-2">
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="flex items-center gap-2 p-2 rounded hover:bg-blue-800 transition"
-            >
-              {item.icon}
-              <span className={`${collapsed ? "hidden" : "inline"}`}>{item.name}</span>
-            </a>
-          ))}
-        </nav>
       </aside>
 
       {/* Mobile Sidebar */}
-      <div
-        className={`absolute top-0 left-0 h-full w-64 md:hidden transform transition-transform duration-300 ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="bg-blue-900 h-full text-white shadow-xl">
-          <div className="flex items-center justify-between h-20 border-b border-blue-700 px-2">
-            <span className="text-xl font-bold">Admin</span>
-            <button
-              className="p-2 hover:bg-blue-800 rounded"
-              onClick={() => setMobileOpen && setMobileOpen(false)}
-            >
-              <XMarkIcon className="w-6 h-6" />
-            </button>
-          </div>
-          <nav className="flex-1 px-2 py-4 space-y-2">
-            {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="flex items-center gap-2 p-2 rounded hover:bg-blue-800 transition"
-                onClick={() => setMobileOpen && setMobileOpen(false)}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div
+            className="absolute inset-0 bg-[#11142B]/40 backdrop-blur-sm"
+            onClick={() => setMobileOpen?.(false)}
+          />
+          <div className="absolute left-0 top-0 h-full w-64 bg-[#11142B] shadow-xl">
+            <div className="flex h-20 items-center justify-between border-b border-white/10 px-4">
+              <Image
+                src="/krystal4.png"
+                alt="Krystal"
+                width={160}
+                height={50}
+                className="h-8 w-auto brightness-0 invert"
+              />
+              <button
+                className="rounded-lg p-2 text-white/70 hover:bg-white/10"
+                onClick={() => setMobileOpen?.(false)}
+                aria-label="Close menu"
               >
-                {item.icon}
-                <span>{item.name}</span>
-              </a>
-            ))}
-          </nav>
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            </div>
+            <NavItems onNavigate={() => setMobileOpen?.(false)} />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

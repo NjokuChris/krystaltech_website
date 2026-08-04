@@ -18,7 +18,7 @@ import Happeningnow from "@/_components/Happeningnow";
 
 const LandingPage = () => {
   return (
-    <main className="font-sans  ">
+    <main className="font-sans bg-[#F3F1EA] ">
       <NavBar />
       <Hero />
       <Happeningnow />

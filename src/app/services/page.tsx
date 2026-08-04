@@ -25,6 +25,9 @@ import type { IconType } from "react-icons";
 
 import NavBar from "@/_components/NavBar";
 import Footer from "@/_components/Footer";
+import PricingSection from "@/_components/Pricing";
+import DeviceCTABanner from "@/_components/DeviceCTABanner";
+import { ctaConfigs } from "@/_components/ctaConfigs";
 
 type Service = {
   slug: string;
@@ -332,47 +335,9 @@ export default function ServicesPage() {
         </motion.div>
       </section>
 
+      <PricingSection />
       {/* ---------------------------------------------------------- cta */}
-      <section className="px-5 pb-24 md:px-10">
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.7 }}
-          className="mx-auto grid max-w-[1400px] grid-cols-1 overflow-hidden rounded-[36px] bg-[#FFB627] md:grid-cols-[1.2fr_0.8fr]"
-        >
-          <div className="flex flex-col justify-center p-8 md:p-14">
-            <h2 className="max-w-md text-3xl font-semibold text-[#11142B] sm:text-4xl">
-              Have something to build?
-            </h2>
-            <p className="mt-4 max-w-md text-[#11142B]/70">
-              Tell us what you&apos;re working on and where you want it to go.
-              We&apos;ll come back with a plan, a timeline and a price.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="flex items-center gap-2 rounded-full bg-[#11142B] px-7 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-              >
-                Start a project <FiArrowRight className="text-xs" />
-              </Link>
-              <Link
-                href="/about"
-                className="rounded-full border border-[#11142B]/25 px-7 py-3 text-sm font-semibold text-[#11142B] transition-colors hover:bg-[#11142B]/5"
-              >
-                About the hub
-              </Link>
-            </div>
-          </div>
-          <div className="relative min-h-[260px] w-full">
-            <Image
-              src="/pc-setup.png"
-              alt="A finished product built at Krystal Tech Hub"
-              fill
-              sizes="(max-width: 768px) 100vw, 480px"
-              className="object-cover"
-            />
-          </div>
-        </motion.div>
-      </section>
+      <DeviceCTABanner {...ctaConfigs.services} />
 
       <Footer />
     </main>

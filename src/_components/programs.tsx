@@ -125,7 +125,7 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
   const [hovered, setHovered] = useState(false);
   const { Icon } = course;
 
-  const goToCourse = () => router.push(`/courses/${course.slug}`);
+  const goToCourse = () => router.push(`/programs/${course.slug}`);
 
   return (
     <motion.div

@@ -205,7 +205,7 @@ export default function TechHubHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
-          className="mt-8 max-w-md text-sm text-[#11142B]/60 font-medium sm:text-base"
+          className="mt-8 max-w-md text-sm text-[#11142B]/70 font-medium sm:text-base"
         >
           We build future tech talent and premium software.
           <br />
@@ -223,7 +223,7 @@ export default function TechHubHero() {
             whileTap={{ scale: 0.97 }}
             className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl"
           >
-            Reserve a seat
+            Start a Project
           </motion.button>
           <motion.button
             whileHover={{ y: -2 }}

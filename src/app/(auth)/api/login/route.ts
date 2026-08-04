@@ -1,16 +1,19 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { db } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
     const { username, password } = await req.json();
 
-    // Find user
-    const user = await prisma.user.findUnique({ where: { username } });
+    // Find user (case/whitespace-insensitive on username so browser
+    // auto-capitalization or stray spaces don't cause false 401s).
+    const user = await db.user.findFirst({
+      where: {
+        username: { equals: String(username ?? "").trim(), mode: "insensitive" },
+      },
+    });
     if (!user) {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
@@ -23,7 +26,7 @@ export async function POST(req: Request) {
 
     // Generate JWT
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, username: user.username, role: user.role },
       process.env.JWT_SECRET!,
       { expiresIn: "1h" }
     );

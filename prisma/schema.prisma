@@ -11,19 +11,60 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 model Post {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
+  slug      String   @unique
   title     String
-  content   String
-  published Boolean? @default(false)
+  excerpt   String
+  content   String   // markdown body
+  category  String   // "Tech Hub" | "Service Hub" | "Guides"
+  image     String   // /public path or remote URL
+  readTime  String
+  published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([published, createdAt])
+}
+
+model Announcement {
+  id             String   @id @default(cuid())
+  eyebrow        String   @default("Happening now")
+  title          String
+  body           String
+  primaryLabel   String?
+  primaryHref    String?
+  secondaryLabel String?
+  secondaryHref  String?
+  active         Boolean  @default(false) // only the active one shows on home
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([active])
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
 }
 
 model User {
-  id        Int   @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  username    String    @unique
+  password    String
+  role        Role      @default(ADMIN)
+  invites     Invite[]  @relation("SentInvites")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Invite {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  token       String    @unique
+  used        Boolean   @default(false)
+  expiresAt   DateTime
+  invitedById Int
+  invitedBy   User      @relation("SentInvites", fields: [invitedById], references: [id])
+  createdAt   DateTime  @default(now())
 }

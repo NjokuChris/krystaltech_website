@@ -12,7 +12,8 @@ import { motion } from "framer-motion";
 import NavBar from "@/_components/NavBar";
 import Footer from "@/_components/Footer";
 import WorkComp from "@/_components/WorkComp";
-import CtaBanner from "@/_components/CtaBanner";
+import DeviceCTABanner from "@/_components/DeviceCTABanner";
+import { ctaConfigs } from "@/_components/ctaConfigs";
 import { projects } from "@/_components/workData";
 import type { Project } from "@/_components/workData";
 
@@ -133,14 +134,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      <CtaBanner
-        title="Have a project in mind?"
-        body="Tell us what you're building. We'll scope it honestly and tell you what it takes, no jargon and no surprise invoices."
-        primary={{ label: "Start a project", href: "/contact" }}
-        secondary={{ label: "See our services", href: "/services" }}
-        image="/software-developer.jpg"
-        imageAlt="Developer working at a desk"
-      />
+      <DeviceCTABanner {...ctaConfigs.work} />
 
       <Footer />
     </main>

@@ -3,57 +3,88 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-async function verifyToken(token?: string | null) {
-  if (!token) return false;
+interface JwtPayload {
+  id: number;
+  username: string;
+  role: "SUPER_ADMIN" | "ADMIN";
+  iat: number;
+  exp: number;
+}
+
+async function verifyToken(token?: string | null): Promise<JwtPayload | null> {
+  if (!token) return null;
   try {
-    // jose expects the secret as a Uint8Array
     const encoder = new TextEncoder();
     const secret = encoder.encode(process.env.JWT_SECRET || "");
-
-    // verify; this will throw if invalid/expired
-    await jwtVerify(token, secret, {
-      // allowed algorithms can be specified if needed:
-      // algorithms: ["HS256"]
-    });
-    return true;
-  } catch (_err) {
-    // optionally console.error(err);
-    return false;
+    const { payload } = await jwtVerify(token, secret);
+    return payload as unknown as JwtPayload;
+  } catch {
+    return null;
   }
 }
+
+// CMS API routes whose write operations (POST/PATCH/PUT/DELETE) require auth.
+const CMS_API_PREFIXES = ["/api/posts", "/api/announcements"];
+
+// Super-admin-only API prefixes
+const SUPER_ADMIN_API_PREFIXES = ["/api/invites", "/api/users"];
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value ?? null;
   const { pathname } = req.nextUrl;
 
-  // Protect /admin and /signup routes
-  if (pathname.startsWith("/admin") || pathname === "/signup") {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-
-    const valid = await verifyToken(token);
-    if (!valid) {
-      return NextResponse.redirect(new URL("/login", req.url));
+  // Gate CMS write operations
+  const isCmsApi = CMS_API_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+  if (isCmsApi) {
+    if (req.method === "GET") return NextResponse.next();
+    const payload = await verifyToken(token);
+    if (!payload) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     return NextResponse.next();
   }
 
-    // Redirect logged-in users away from /signup and /login
-  if ((pathname === "/login") && token) {
-    const valid = await verifyToken(token);
-    if (valid) {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+  // Gate super-admin API routes (invites, user management)
+  const isSuperAdminApi = SUPER_ADMIN_API_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+  if (isSuperAdminApi) {
+    const payload = await verifyToken(token);
+    if (!payload) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
+    if (payload.role !== "SUPER_ADMIN") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+    return NextResponse.next();
   }
 
-  // Prevent logged-in users from accessing /login
-  if (pathname === "/login" && token) {
-    const valid = await verifyToken(token);
-    if (valid) {
+  // Protect /admin/dashboard/users — super admin only
+  if (pathname.startsWith("/admin/dashboard/users")) {
+    if (!token) return NextResponse.redirect(new URL("/login", req.url));
+    const payload = await verifyToken(token);
+    if (!payload) return NextResponse.redirect(new URL("/login", req.url));
+    if (payload.role !== "SUPER_ADMIN") {
       return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-    } else {
-      return NextResponse.next();
+    }
+    return NextResponse.next();
+  }
+
+  // Protect /admin and /signup routes
+  if (pathname.startsWith("/admin") || pathname === "/signup") {
+    if (!token) return NextResponse.redirect(new URL("/login", req.url));
+    const payload = await verifyToken(token);
+    if (!payload) return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.next();
+  }
+
+  // Redirect logged-in users away from /login
+  if (pathname === "/login" && token) {
+    const payload = await verifyToken(token);
+    if (payload) {
+      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     }
   }
 
@@ -61,5 +92,15 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login", "/signup"],
+  matcher: [
+    "/admin/:path*",
+    "/login",
+    "/signup",
+    "/api/posts/:path*",
+    "/api/announcements/:path*",
+    "/api/invites/:path*",
+    "/api/invites",
+    "/api/users/:path*",
+    "/api/users",
+  ],
 };

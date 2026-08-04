@@ -155,7 +155,7 @@ function Panel({
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.25 }}
-                className={`mt-3 max-w-md text-3xl font-bold tracking-tight sm:text-4xl ${
+                className={`mt-3 max-w-lg text-3xl font-bold tracking-tight sm:text-4xl ${
                   isDark ? "text-white" : "text-[#11142B]"
                 }`}
               >

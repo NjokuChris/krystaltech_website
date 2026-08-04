@@ -4,20 +4,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import type { Post } from "./blogData";
 
 /**
  * A single blog card. Clean sand-on-white look matching the rest of the
  * site: image on top, category chip, title, excerpt, meta row.
+ *
+ * Accepts a minimal shape so both the static seed data and the DB `Post`
+ * model can feed it. `date` is a preformatted display string.
  */
 
-const categoryTint: Record<Post["category"], string> = {
+export type BlogCardPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readTime: string;
+  image: string;
+};
+
+const categoryTint: Record<string, string> = {
   "Tech Hub": "bg-[#2DD4BF]/15 text-[#0f766e]",
   "Service Hub": "bg-[#FFB627]/20 text-[#92600a]",
   Guides: "bg-[#11142B]/10 text-[#11142B]",
 };
 
-export default function BlogComp({ post }: { post: Post }) {
+export default function BlogComp({ post }: { post: BlogCardPost }) {
+  const tint = categoryTint[post.category] ?? "bg-[#11142B]/10 text-[#11142B]";
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}

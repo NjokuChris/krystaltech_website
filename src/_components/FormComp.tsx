@@ -54,11 +54,56 @@ const fieldFade = {
 export default function ContactForm() {
   const [hub, setHub] = useState<Hub>("tech");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // No backend wired yet - show a friendly confirmation.
-    setSubmitted(true);
+    if (sending) return;
+
+    setError(null);
+    setSending(true);
+
+    const formEl = e.currentTarget;
+    const fd = new FormData(formEl);
+    const payload = {
+      hub,
+      name: String(fd.get("name") || ""),
+      email: String(fd.get("email") || ""),
+      phone: String(fd.get("phone") || ""),
+      message: String(fd.get("message") || ""),
+      learner: String(fd.get("learner") || ""),
+      age: String(fd.get("age") || ""),
+      program: String(fd.get("program") || ""),
+      company: String(fd.get("company") || ""),
+      budget: String(fd.get("budget") || ""),
+      service: String(fd.get("service") || ""),
+      website: String(fd.get("website") || ""), // honeypot
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Something went wrong. Please try again.");
+      }
+
+      formEl.reset();
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -150,6 +195,18 @@ export default function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        {/* honeypot - hidden from real users, catches bots. Autofill is
+            actively suppressed: a random-ish name + new-password hint stop
+            browsers and password managers from populating it. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="new-password"
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+
         {/* shared: your name + email */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
@@ -264,10 +321,10 @@ export default function ContactForm() {
                   </label>
                   <select id="budget" name="budget" className={inputClass}>
                     <option value="">Prefer not to say</option>
-                    <option value="under-250k">Under ₦250,000</option>
-                    <option value="250k-1m">₦250,000 - ₦1,000,000</option>
-                    <option value="1m-5m">₦1,000,000 - ₦5,000,000</option>
-                    <option value="over-5m">Over ₦5,000,000</option>
+                    <option value="Under ₦250,000">Under ₦250,000</option>
+                    <option value="₦250,000 - ₦1,000,000">₦250,000 - ₦1,000,000</option>
+                    <option value="₦1,000,000 - ₦5,000,000">₦1,000,000 - ₦5,000,000</option>
+                    <option value="Over ₦5,000,000">Over ₦5,000,000</option>
                   </select>
                 </div>
               </div>
@@ -307,11 +364,22 @@ export default function ContactForm() {
           />
         </div>
 
+        {error && (
+          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 ring-1 ring-red-100">
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
-          className="w-full rounded-full bg-[#11142B] py-3.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+          disabled={sending}
+          className="w-full rounded-full bg-[#11142B] py-3.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         >
-          {hub === "tech" ? "Send enrolment enquiry" : "Send project enquiry"}
+          {sending
+            ? "Sending..."
+            : hub === "tech"
+              ? "Send enrolment enquiry"
+              : "Send project enquiry"}
         </button>
       </form>
     </div>

@@ -32,6 +32,8 @@ import type { IconType } from "react-icons";
 
 import NavBar from "@/_components/NavBar";
 import Footer from "@/_components/Footer";
+import DeviceCTABanner from "@/_components/DeviceCTABanner";
+import { ctaConfigs } from "@/_components/ctaConfigs";
 
 type Track = {
   slug: string;
@@ -183,44 +185,53 @@ function TrackCard({ track, index }: { track: Track; index: number }) {
     <motion.div
       {...fadeUp}
       transition={{ duration: 0.45, delay: (index % 4) * 0.06 }}
-      className="group flex flex-col rounded-3xl bg-white p-7 ring-1 ring-[#11142B]/[0.06] transition-shadow hover:shadow-xl hover:shadow-[#11142B]/5"
     >
-      <div className="flex items-start justify-between">
-        <span
-          className={`flex h-12 w-12 items-center justify-center rounded-2xl ${track.tint}`}
-          style={{ color: track.ink }}
-        >
-          <Icon className="text-xl" />
-        </span>
-        <span className="rounded-full bg-[#11142B]/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-[#11142B]/50">
-          {track.level}
-        </span>
-      </div>
+      <Link
+        href={`/programs/${track.slug}`}
+        className="group flex h-full flex-col rounded-3xl bg-white p-7 ring-1 ring-[#11142B]/[0.06] transition-shadow hover:shadow-xl hover:shadow-[#11142B]/5"
+      >
+        <div className="flex items-start justify-between">
+          <span
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl ${track.tint}`}
+            style={{ color: track.ink }}
+          >
+            <Icon className="text-xl" />
+          </span>
+          <span className="rounded-full bg-[#11142B]/5 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-[#11142B]/50">
+            {track.level}
+          </span>
+        </div>
 
-      <h3 className="mt-5 text-lg font-semibold">{track.title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-[#11142B]/60">
-        {track.blurb}
-      </p>
+        <h3 className="mt-5 text-lg font-semibold">{track.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-[#11142B]/60">
+          {track.blurb}
+        </p>
 
-      <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#11142B]/55">
-        <span className="flex items-center gap-1.5">
-          <FiUser className="text-[#FFB627]" /> {track.age}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <FiClock className="text-[#FFB627]" /> {track.duration}
-        </span>
-      </div>
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#11142B]/55">
+          <span className="flex items-center gap-1.5">
+            <FiUser className="text-[#FFB627]" /> {track.age}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FiClock className="text-[#FFB627]" /> {track.duration}
+          </span>
+        </div>
 
-      <div className="mt-5 flex items-start gap-2 border-t border-[#11142B]/[0.07] pt-5 text-sm text-[#11142B]/70">
-        <FiCheckCircle
-          className="mt-0.5 shrink-0"
-          style={{ color: track.ink }}
-        />
-        <span>
-          <span className="font-medium text-[#11142B]">You build:</span>{" "}
-          {track.builds}
+        <div className="mt-5 flex items-start gap-2 border-t border-[#11142B]/[0.07] pt-5 text-sm text-[#11142B]/70">
+          <FiCheckCircle
+            className="mt-0.5 shrink-0"
+            style={{ color: track.ink }}
+          />
+          <span>
+            <span className="font-medium text-[#11142B]">You build:</span>{" "}
+            {track.builds}
+          </span>
+        </div>
+
+        <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-[#11142B] transition-colors group-hover:text-[#92600a]">
+          View program
+          <FiArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
         </span>
-      </div>
+      </Link>
     </motion.div>
   );
 }
@@ -361,47 +372,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* ---------------------------------------------------------- cta */}
-      <section className="px-5 pb-24 md:px-10">
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.7 }}
-          className="mx-auto grid max-w-[1400px] grid-cols-1 overflow-hidden rounded-[36px] bg-[#FFB627] md:grid-cols-[1.2fr_0.8fr]"
-        >
-          <div className="flex flex-col justify-center p-8 md:p-14">
-            <h2 className="max-w-md text-3xl font-semibold text-[#11142B] sm:text-4xl">
-              Seats fill fast each term.
-            </h2>
-            <p className="mt-4 max-w-md text-[#11142B]/70">
-              Tell us the learner&apos;s age and what they&apos;re curious about,
-              and we&apos;ll point you to the right track and the next start
-              date.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="flex items-center gap-2 rounded-full bg-[#11142B] px-7 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-              >
-                Reserve a seat <FiArrowRight className="text-xs" />
-              </Link>
-              <Link
-                href="/about"
-                className="rounded-full border border-[#11142B]/25 px-7 py-3 text-sm font-semibold text-[#11142B] transition-colors hover:bg-[#11142B]/5"
-              >
-                About the hub
-              </Link>
-            </div>
-          </div>
-          <div className="relative min-h-[260px] w-full">
-            <Image
-              src="/the-dev.jpg"
-              alt="A mentor coding at Krystal Tech Hub"
-              fill
-              sizes="(max-width: 768px) 100vw, 480px"
-              className="object-cover"
-            />
-          </div>
-        </motion.div>
-      </section>
+      <DeviceCTABanner {...ctaConfigs.programs} />
 
       <Footer />
     </main>

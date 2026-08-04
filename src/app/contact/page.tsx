@@ -8,18 +8,60 @@
  * Service Hub form on the right.
  */
 
-import { motion } from "framer-motion";
-import { FiPhone, FiMail, FiMapPin, FiClock } from "react-icons/fi";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiPhone, FiMail, FiMapPin, FiClock, FiPlus } from "react-icons/fi";
 
 import NavBar from "@/_components/NavBar";
 import Footer from "@/_components/Footer";
 import ContactForm from "@/_components/FormComp";
+import { faqData } from "@/data/faqdata";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
 };
+
+type Faq = { question: string; answer: string };
+
+function FaqItem({ faq, isOpen, onToggle }: { faq: Faq; isOpen: boolean; onToggle: () => void }) {
+  return (
+    <div className="overflow-hidden rounded-2xl bg-white ring-1 ring-[#11142B]/[0.06]">
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+      >
+        <span className="text-base font-medium text-[#11142B]">
+          {faq.question}
+        </span>
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FFB627]/15 text-[#92600a] transition-transform duration-300 ${
+            isOpen ? "rotate-45" : ""
+          }`}
+        >
+          <FiPlus className="text-lg" />
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="px-6 pb-5 text-sm leading-relaxed text-[#11142B]/60">
+              {faq.answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 const DETAILS = [
   {
@@ -47,6 +89,8 @@ const DETAILS = [
 ];
 
 export default function ContactPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   return (
     <main className="bg-[#F3F1EA] font-sans text-[#11142B]">
       <NavBar />
@@ -129,6 +173,39 @@ export default function ContactPage() {
           {/* right: form */}
           <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }}>
             <ContactForm />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* faq */}
+      <section id="faq" className="scroll-mt-24 px-5 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[820px]">
+          <motion.div {...fadeUp} transition={{ duration: 0.6 }} className="text-center">
+            <span className="inline-block rounded-full bg-[#11142B]/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-[#11142B]/50">
+              FAQ
+            </span>
+            <h2 className="mt-5 text-3xl font-medium tracking-tight sm:text-4xl">
+              Questions, answered.
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-sm text-[#11142B]/55">
+              A few things people usually ask before reaching out. If yours
+              isn&apos;t here, just send us a message above.
+            </p>
+          </motion.div>
+
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="mt-10 space-y-3"
+          >
+            {(faqData as Faq[]).map((faq, i) => (
+              <FaqItem
+                key={faq.question}
+                faq={faq}
+                isOpen={openFaq === i}
+                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+              />
+            ))}
           </motion.div>
         </div>
       </section>

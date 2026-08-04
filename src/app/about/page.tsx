@@ -22,6 +22,8 @@ import {
 
 import NavBar from "@/_components/NavBar";
 import Footer from "@/_components/Footer";
+import DeviceCTABanner from "@/_components/DeviceCTABanner";
+import { ctaConfigs } from "@/_components/ctaConfigs";
 
 const STATS = [
   { n: "120+", label: "students trained" },
@@ -304,35 +306,7 @@ export default function AboutPage() {
       </section>
 
       {/* ---------------------------------------------------------- cta */}
-      <section className="px-5 pb-24 md:px-10">
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.7 }}
-          className="mx-auto flex max-w-[1400px] flex-col items-center rounded-[36px] bg-[#FFB627] px-6 py-16 text-center md:py-20"
-        >
-          <h2 className="max-w-2xl text-3xl font-semibold text-[#11142B] sm:text-4xl">
-            Come see the hub for yourself.
-          </h2>
-          <p className="mt-4 max-w-md text-[#11142B]/70">
-            Whether it&apos;s enrolling a young builder or starting a project,
-            we&apos;d love to talk.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/programs"
-              className="flex items-center gap-2 rounded-full bg-[#11142B] px-7 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-            >
-              Explore programs <FiArrowRight className="text-xs" />
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-[#11142B]/25 px-7 py-3 text-sm font-semibold text-[#11142B] transition-colors hover:bg-[#11142B]/5"
-            >
-              Get in touch
-            </Link>
-          </div>
-        </motion.div>
-      </section>
+      <DeviceCTABanner {...ctaConfigs.about} />
 
       <Footer />
     </main>

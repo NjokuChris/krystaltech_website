@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // mobile open
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-[#F3F1EA] text-[#11142B]">
       {/* Sidebar handles both desktop & mobile */}
       <Sidebar
         collapsed={sidebarCollapsed}
@@ -22,10 +22,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       />
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Header toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
-        <main className="p-4 md:p-6 bg-gray-100 flex-1 overflow-auto">
-          {children}
+        <main className="flex-1 overflow-auto bg-[#F3F1EA] p-4 md:p-8">
+          <div className="mx-auto max-w-6xl">{children}</div>
         </main>
       </div>
     </div>
