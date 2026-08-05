@@ -4,26 +4,26 @@
  */
 
 import Link from "next/link";
-import { ArrowRightIcon, PencilSquareIcon, BellAlertIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, PencilSquareIcon, BellAlertIcon, BriefcaseIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { db } from "@/lib/prisma";
-import Card from "../components/dashboard/Card";
-import { ui } from "../components/dashboard/ui";
+import Card from "./components/dashboard/Card";
+import { ui } from "./components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [totalPosts, publishedPosts, draftPosts, announcements] = await Promise.all([
+  const [totalPosts, announcements, projects, teamMembers] = await Promise.all([
     db.post.count(),
-    db.post.count({ where: { published: true } }),
-    db.post.count({ where: { published: false } }),
     db.announcement.count(),
+    db.project.count(),
+    db.teamMember.count(),
   ]);
 
   const cards = [
-    { title: "Total posts", value: totalPosts, accent: true },
-    { title: "Published", value: publishedPosts },
-    { title: "Drafts", value: draftPosts },
+    { title: "Posts", value: totalPosts, accent: true },
     { title: "Announcements", value: announcements },
+    { title: "Projects", value: projects },
+    { title: "Team members", value: teamMembers },
   ];
 
   const links = [
@@ -35,9 +35,21 @@ export default async function DashboardPage() {
     },
     {
       title: "Manage announcements",
-      desc: "Update the “Happening Now” band on the home page.",
+      desc: "Update the Happening Now band on the home page.",
       href: "/admin/dashboard/announcements",
       icon: BellAlertIcon,
+    },
+    {
+      title: "Manage projects",
+      desc: "Showcase client work in the portfolio section.",
+      href: "/admin/dashboard/projects",
+      icon: BriefcaseIcon,
+    },
+    {
+      title: "Manage team",
+      desc: "Add and update team member profiles.",
+      href: "/admin/dashboard/team",
+      icon: UserGroupIcon,
     },
   ];
 
@@ -65,7 +77,7 @@ export default async function DashboardPage() {
               <Icon className="h-6 w-6" />
             </span>
             <div className="flex-1">
-              <h3 className="flex items-center gap-1.5 text-lg font-medium text-[#11142B]">
+              <h3 className="flex items-center gap-1.5 text-base font-medium text-[#11142B]">
                 {title}
                 <ArrowRightIcon className="h-4 w-4 -translate-x-1 text-[#FFB627] opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
               </h3>

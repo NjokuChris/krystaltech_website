@@ -297,7 +297,7 @@ export default function ProgramsPage() {
           >
             <div className="relative aspect-[4/3] w-full">
               <Image
-                src="/hero-image.jpg"
+                src="/krystal-class-6.png"
                 alt="Students building together at Krystal Tech Hub"
                 fill
                 priority

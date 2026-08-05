@@ -41,10 +41,10 @@ function slugify(value: string): string {
 // ─── Markdown toolbar helpers ──────────────────────────────────────────────
 
 type WrapOpts = {
-  before: string;
+  before?: string;
   after?: string;
   placeholder?: string;
-  linePrefix?: string; // for heading / list / blockquote
+  linePrefix?: string;
 };
 
 function applyWrap(
@@ -53,7 +53,7 @@ function applyWrap(
   getValue: () => string,
   setValue: (v: string) => void,
 ) {
-  const { before, after = before, placeholder = "text", linePrefix } = opts;
+  const { before = "", after = before, placeholder = "text", linePrefix } = opts;
   const start = textarea.selectionStart;
   const end = textarea.selectionEnd;
   const full = getValue();

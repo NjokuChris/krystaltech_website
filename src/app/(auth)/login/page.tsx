@@ -35,7 +35,7 @@ export default function LoginPage() {
     const result = await res.json().catch(() => ({}));
 
     if (res.ok) {
-      router.push("/admin/dashboard");
+      router.push("/admin");
       router.refresh();
       return;
     }
@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <AuthShell title="Sign in" subtitle="Access the Krystal Tech Hub admin.">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} action="#" className="space-y-4">
         {message && <div className={ui.errorBox}>{message}</div>}
 
         <div>

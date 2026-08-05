@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import type { Project } from "./workData";
+import type { Project } from "@/_components/workData";
 
 /**
  * A single work/project card. Image dominates the card, with

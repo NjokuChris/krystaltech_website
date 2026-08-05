@@ -60,7 +60,7 @@ export default function AcceptInvitePage() {
         return;
       }
 
-      router.replace("/admin/dashboard");
+      router.replace("/admin");
     } finally {
       setLoading(false);
     }

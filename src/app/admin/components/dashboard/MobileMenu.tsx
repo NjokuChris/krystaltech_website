@@ -10,7 +10,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
   if (!isOpen) return null;
 
   const menuItems = [
-    { name: "Dashboard", href: "/admin/dashboard" },
+    { name: "Dashboard", href: "/admin" },
     { name: "Tables", href: "/admin/dashboard/tables" },
     { name: "Forms", href: "/admin/dashboard/forms" },
     { name: "Notifications", href: "/admin/dashboard/notifications" },

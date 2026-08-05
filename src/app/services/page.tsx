@@ -235,7 +235,7 @@ export default function ServicesPage() {
           >
             <div className="relative aspect-[4/3] w-full">
               <Image
-                src="/software-developer.jpg"
+                src="/krystal-class-4.png"
                 alt="A developer at work at Krystal Tech Hub"
                 fill
                 priority

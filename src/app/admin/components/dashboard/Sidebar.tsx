@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, XMarkIcon, HomeIcon, PencilSquareIcon, BellAlertIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, HomeIcon, PencilSquareIcon, BellAlertIcon, UsersIcon, BriefcaseIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 interface SidebarProps {
@@ -14,9 +14,11 @@ interface SidebarProps {
 }
 
 const baseMenuItems = [
-  { name: "Dashboard", icon: HomeIcon, href: "/admin/dashboard" },
+  { name: "Dashboard", icon: HomeIcon, href: "/admin" },
   { name: "Posts", icon: PencilSquareIcon, href: "/admin/dashboard/posts" },
   { name: "Announcements", icon: BellAlertIcon, href: "/admin/dashboard/announcements" },
+  { name: "Projects", icon: BriefcaseIcon, href: "/admin/dashboard/projects" },
+  { name: "Team", icon: UserGroupIcon, href: "/admin/dashboard/team" },
 ];
 
 const superAdminItems = [
@@ -24,7 +26,7 @@ const superAdminItems = [
 ];
 
 function isActive(pathname: string, href: string) {
-  if (href === "/admin/dashboard") return pathname === href;
+  if (href === "/admin") return pathname === href;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -72,7 +74,7 @@ export default function Sidebar({
 
   const Brand = ({ showToggle }: { showToggle?: boolean }) => (
     <div className="flex h-20 items-center justify-between border-b border-white/10 px-4">
-      <Link href="/admin/dashboard" className={collapsed && !showToggle ? "hidden" : "flex items-center"}>
+      <Link href="/admin" className={collapsed && !showToggle ? "hidden" : "flex items-center"}>
         <Image
           src="/krystal4.png"
           alt="Krystal"

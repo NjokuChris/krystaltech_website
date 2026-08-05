@@ -1,11 +1,5 @@
 import * as z from "zod";
 
-export const signupSchema = z.object({
-  username: z.string().min(2, "Username must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
 export const loginSchema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters"),
   password: z.string().min(6, "Password too short"),
@@ -34,9 +28,7 @@ export const contactSchema = z.object({
   budget: z.string().trim().max(40).optional().or(z.literal("")),
   service: z.string().trim().max(120).optional().or(z.literal("")),
 
-  // honeypot - real users leave this empty. Kept loose here so browser
-  // autofill can't produce a hard validation error; the route inspects
-  // it separately and silently drops bot submissions.
+  // honeypot
   website: z.string().optional(),
 });
 
@@ -65,11 +57,10 @@ export const postSchema = z.object({
 });
 
 export type PostPayload = z.infer<typeof postSchema>;
-// Input type (before defaults are applied) - use for react-hook-form values.
 export type PostInput = z.input<typeof postSchema>;
 
 // ---------------------------------------------------------------
-// Announcements (CMS) - powers /api/announcements + "Happening Now"
+// Announcements (CMS) - powers /api/announcements
 // ---------------------------------------------------------------
 
 export const announcementSchema = z.object({
@@ -84,3 +75,47 @@ export const announcementSchema = z.object({
 });
 
 export type AnnouncementPayload = z.infer<typeof announcementSchema>;
+
+// ---------------------------------------------------------------
+// Projects / Work (CMS) - powers /api/projects
+// ---------------------------------------------------------------
+
+export const PROJECT_CATEGORIES = ["Website", "Mobile App", "Branding", "Security"] as const;
+
+export const projectSchema = z.object({
+  title: z.string().trim().min(3, "Title must be at least 3 characters").max(160),
+  slug: z
+    .string()
+    .trim()
+    .min(3)
+    .max(160)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase words separated by hyphens"),
+  client: z.string().trim().min(1, "Client name is required").max(120),
+  category: z.enum(PROJECT_CATEGORIES),
+  summary: z.string().trim().min(10, "Summary is too short").max(600),
+  image: z.string().trim().min(1, "Image is required").max(500),
+  tags: z.union([
+    z.array(z.string().trim().max(40)),
+    z.string().transform((s) => s.split(",").map((t) => t.trim()).filter(Boolean)),
+  ]),
+  published: z.boolean().default(false),
+});
+
+export type ProjectPayload = z.infer<typeof projectSchema>;
+export type ProjectInput = z.input<typeof projectSchema>;
+
+// ---------------------------------------------------------------
+// Team members (CMS) - powers /api/team
+// ---------------------------------------------------------------
+
+export const teamMemberSchema = z.object({
+  name: z.string().trim().min(2, "Name is required").max(120),
+  role: z.string().trim().min(2, "Role is required").max(120),
+  bio: z.string().trim().min(10, "Bio is too short").max(600),
+  image: z.string().trim().min(1, "Image is required").max(500),
+  order: z.number().int().default(0),
+  published: z.boolean().default(true),
+});
+
+export type TeamMemberPayload = z.infer<typeof teamMemberSchema>;
+export type TeamMemberInput = z.input<typeof teamMemberSchema>;

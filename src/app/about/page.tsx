@@ -102,7 +102,7 @@ export default function AboutPage() {
           >
             <div className="relative aspect-[16/10] w-full sm:aspect-[16/7]">
               <Image
-                src="/hero-image.jpg"
+                src="/krystal-class-3.png"
                 alt="Students working together at Krystal Tech Hub"
                 fill
                 priority
@@ -152,8 +152,8 @@ export default function AboutPage() {
           >
             <div className="relative aspect-[4/3] w-full">
               <Image
-                src="/contact-bg.jpg"
-                alt="The team working around a shared table"
+                src="/krystal-class-5.png"
+                alt="The team working at Krystal Tech Hub"
                 fill
                 sizes="(max-width: 768px) 100vw, 700px"
                 className="object-cover"
@@ -302,6 +302,55 @@ export default function AboutPage() {
               </p>
             </div>
           ))}
+        </motion.div>
+      </section>
+
+      {/* ---------------------------------------------------------- meet the team */}
+      <section className="px-5 pb-16 md:px-10">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.7 }}
+          className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-8 overflow-hidden rounded-[36px] bg-[#11142B] md:grid-cols-[1fr_auto] md:gap-0"
+        >
+          <div className="p-8 md:p-14">
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#FFB627]">
+              The people
+            </span>
+            <h2 className="mt-4 max-w-md text-3xl font-semibold leading-snug text-white sm:text-4xl">
+              Builders who teach what they ship.
+            </h2>
+            <p className="mt-4 max-w-sm text-base text-white/55">
+              The same team building real products for clients is the team in the
+              classroom. Come see who&apos;s behind the work.
+            </p>
+            <Link
+              href="/team"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#FFB627] px-6 py-3 text-sm font-semibold text-[#11142B] transition-transform hover:-translate-y-0.5"
+            >
+              Meet the team <FiArrowRight className="text-xs" />
+            </Link>
+          </div>
+
+          {/* stacked member avatars */}
+          <div className="flex items-center justify-center gap-0 px-8 pb-8 md:py-14 md:pr-14">
+            {["/Njoku_chris.jpg", "/krystal-class-7.png", "/krystal-class-8.png"].map(
+              (src, i) => (
+                <div
+                  key={src}
+                  className="relative h-20 w-20 overflow-hidden rounded-full border-4 border-[#11142B] ring-2 ring-white/10 md:h-24 md:w-24"
+                  style={{ marginLeft: i === 0 ? 0 : "-1.25rem", zIndex: i }}
+                >
+                  <Image
+                    src={src}
+                    alt="Team member"
+                    fill
+                    sizes="96px"
+                    className="object-cover object-top"
+                  />
+                </div>
+              ),
+            )}
+          </div>
         </motion.div>
       </section>
 

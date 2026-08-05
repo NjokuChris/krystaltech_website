@@ -10,6 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+model Project {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  client    String
+  category  String   // "Website" | "Mobile App" | "Branding" | "Security"
+  summary   String
+  image     String
+  tags      String[] // stored as a Postgres text array
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, createdAt])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  bio       String
+  image     String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Post {
   id        String   @id @default(cuid())
   slug      String   @unique

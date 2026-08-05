@@ -22,7 +22,9 @@
  */
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import ContactDrawer from "@/_components/ContactDrawer";
 
 // ---------------------------------------------------------------
 // Content
@@ -41,43 +43,43 @@ type Card = {
 // desktopOnly cards sit on the outer edges of the wider desktop fan.
 const CARDS: Card[] = [
   {
-    photo: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+    photo: "https://images.pexels.com/photos/8500352/pexels-photo-8500352.jpeg",
     mobile: { rotate: -15, x: -360, y: 40 },
     desktop: { rotate: -16, x: -430, y: 44 },
   },
   {
-    photo: "https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg",
+    photo: "/students-3.jpg",
     mobile: { rotate: -9, x: -216, y: 16 },
     desktop: { rotate: -11, x: -307, y: 20 },
   },
   {
-    photo: "https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg",
+    photo: "https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg",
     mobile: { rotate: -3, x: -72, y: -6 },
     desktop: { rotate: -6, x: -184, y: 2 },
   },
   {
-    photo: "https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg",
+    photo: "/students-5.jpg",
     mobile: { rotate: 3, x: 72, y: -6 },
     desktop: { rotate: -2, x: -61, y: -8 },
   },
   {
-    photo: "https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg",
+    photo: "/students-6.jpg",
     mobile: { rotate: 9, x: 216, y: 16 },
     desktop: { rotate: 2, x: 61, y: -8 },
   },
   {
-    photo: "https://images.pexels.com/photos/3862376/pexels-photo-3862376.jpeg",
+    photo: "/students-2.jpg",
     mobile: { rotate: 15, x: 360, y: 40 },
     desktop: { rotate: 6, x: 184, y: 2 },
   },
   {
-    photo: "https://images.pexels.com/photos/8500352/pexels-photo-8500352.jpeg",
+    photo: "/students-4.jpg",
     mobile: { rotate: 0, x: 0, y: 0 },
     desktop: { rotate: 11, x: 307, y: 20 },
     desktopOnly: true,
   },
   {
-    photo: "https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg",
+    photo: "https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg",
     mobile: { rotate: 0, x: 0, y: 0 },
     desktop: { rotate: 16, x: 430, y: 44 },
     desktopOnly: true,
@@ -163,6 +165,7 @@ export default function TechHubHero() {
   // Pick each card's resting pose by breakpoint: the desktop fan is
   // wider (8 cards), the mobile fan tighter (6). md = 768px.
   const [isDesktop, setIsDesktop] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -173,7 +176,7 @@ export default function TechHubHero() {
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
+    <section className="relative isolate overflow-hidden z-50 bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
       <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
@@ -181,7 +184,7 @@ export default function TechHubHero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-5xl font-light leading-[1.05] tracking-tight text-[#11142B] sm:text-6xl lg:text-7xl"
         >
-          We Train
+          We Train and build
           <br />
           <span className="relative uppercase inline-block font-bold">
             the future
@@ -221,19 +224,24 @@ export default function TechHubHero() {
           <motion.button
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97 }}
+            onClick={() => setContactOpen(true)}
             className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl"
           >
             Start a Project
           </motion.button>
-          <motion.button
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="rounded-full border border-[#11142B]/20 px-8 py-3 text-sm font-semibold text-[#11142B]"
-          >
-            See courses
-          </motion.button>
+          <Link href="/programs">
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="rounded-full border border-[#11142B]/20 px-8 py-3 text-sm font-semibold text-[#11142B]"
+            >
+              See courses
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
+
+      <ContactDrawer  open={contactOpen} onClose={() => setContactOpen(false)} />
     </section>
   );
 }

@@ -16,6 +16,7 @@
  * and routes.
  */
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -27,6 +28,7 @@ import {
 } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import type { IconType } from "react-icons";
+import ContactDrawer from "@/_components/ContactDrawer";
 
 // ---------------------------------------------------------------
 // Content
@@ -176,6 +178,8 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 // ---------------------------------------------------------------
 
 export default function BusinessServices() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <section className="flex w-full flex-col items-center overflow-hidden bg-[#F3F1EA] py-20">
       <div className="w-[90vw] md:w-[80vw]">
@@ -226,11 +230,16 @@ export default function BusinessServices() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-14 flex justify-center"
         >
-          <button className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:-translate-y-0.5">
+          <button
+            onClick={() => setContactOpen(true)}
+            className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:-translate-y-0.5"
+          >
             Start a project
           </button>
         </motion.div>
       </div>
+
+      <ContactDrawer open={contactOpen} onClose={() => setContactOpen(false)} />
     </section>
   );
 }

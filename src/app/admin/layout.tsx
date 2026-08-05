@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode, useState } from "react";
-import Sidebar from "../components/dashboard/Sidebar";
-import Header from "../components/dashboard/Header";
+import Sidebar from "./components/dashboard/Sidebar";
+import Header from "./components/dashboard/Header";
 
 interface DashboardLayoutProps {
   children: ReactNode;

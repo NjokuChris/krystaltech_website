@@ -24,35 +24,26 @@ const LINK_COLUMNS = [
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
+      { label: "Our Team", href: "/team" },
+      { label: "Our Work", href: "/work" },
       { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "/contact" },
     ],
   },
   {
-    title: "Solutions",
+    title: "Services",
     links: [
-      { label: "Web Development", href: "/services/web" },
-      { label: "Mobile Apps", href: "/services/mobile" },
-      { label: "AI Solutions", href: "/services/ai" },
-      { label: "Cloud & DevOps", href: "/services/cloud" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Help Center", href: "/help" },
+      { label: "What We Do", href: "/services" },
+      { label: "Programs", href: "/programs" },
       { label: "Pricing", href: "/pricing" },
-      { label: "FAQ", href: "/contact#faq" },
-      { label: "System Status", href: "/status" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
 ];
 
 const SOCIALS = [
-  { label: "Facebook", href: "https://facebook.com", Icon: FaFacebook },
+  { label: "Facebook", href: "https://web.facebook.com/Krystaltechnology", Icon: FaFacebook },
   { label: "Instagram", href: "https://instagram.com", Icon: FaInstagram },
-  { label: "X", href: "https://x.com", Icon: FaXTwitter },
+  { label: "X", href: "https://x.com/krystal_teck", Icon: FaXTwitter },
 ];
 
 const LEGAL_LINKS = [
@@ -133,7 +124,7 @@ const Footer = () => {
           <motion.div
             key={column.title}
             variants={item}
-            className="lg:col-span-2"
+            className="lg:col-span-3"
           >
             <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FFB627]">
               {column.title}
@@ -167,8 +158,16 @@ const Footer = () => {
       <div className="relative z-20 border-b border-[#F3F1EA]/10">
         <div className="mx-auto flex w-full max-w-[1400px] flex-col-reverse items-center justify-between gap-4 px-5 py-6 md:flex-row md:px-10">
           <p className="text-sm text-[#F3F1EA]/50">
-            © {new Date().getFullYear()} Krystal Technologies. All rights
-            reserved.
+            ©{" "}
+            <Link
+              href="/login"
+              className="transition-colors hover:text-[#F3F1EA]/50"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              {new Date().getFullYear()}
+            </Link>{" "}
+            Krystal Technologies. All rights <Link href="/login">reserved</Link>.
           </p>
 
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

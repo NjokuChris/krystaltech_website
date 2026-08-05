@@ -24,7 +24,7 @@ async function verifyToken(token?: string | null): Promise<JwtPayload | null> {
 }
 
 // CMS API routes whose write operations (POST/PATCH/PUT/DELETE) require auth.
-const CMS_API_PREFIXES = ["/api/posts", "/api/announcements"];
+const CMS_API_PREFIXES = ["/api/posts", "/api/announcements", "/api/projects", "/api/team"];
 
 // Super-admin-only API prefixes
 const SUPER_ADMIN_API_PREFIXES = ["/api/invites", "/api/users"];
@@ -46,10 +46,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // /api/invites/accept is public: invitees have no token yet — it does its
+  // own token + email validation internally. Must be excluded from the gate.
+  const isPublicInviteRoute = pathname === "/api/invites/accept";
+
   // Gate super-admin API routes (invites, user management)
-  const isSuperAdminApi = SUPER_ADMIN_API_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
+  const isSuperAdminApi =
+    !isPublicInviteRoute &&
+    SUPER_ADMIN_API_PREFIXES.some(
+      (p) => pathname === p || pathname.startsWith(`${p}/`),
+    );
   if (isSuperAdminApi) {
     const payload = await verifyToken(token);
     if (!payload) {
@@ -67,13 +73,13 @@ export async function middleware(req: NextRequest) {
     const payload = await verifyToken(token);
     if (!payload) return NextResponse.redirect(new URL("/login", req.url));
     if (payload.role !== "SUPER_ADMIN") {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+      return NextResponse.redirect(new URL("/admin", req.url));
     }
     return NextResponse.next();
   }
 
-  // Protect /admin and /signup routes
-  if (pathname.startsWith("/admin") || pathname === "/signup") {
+  // Protect admin routes
+  if (pathname.startsWith("/admin")) {
     if (!token) return NextResponse.redirect(new URL("/login", req.url));
     const payload = await verifyToken(token);
     if (!payload) return NextResponse.redirect(new URL("/login", req.url));
@@ -84,7 +90,7 @@ export async function middleware(req: NextRequest) {
   if (pathname === "/login" && token) {
     const payload = await verifyToken(token);
     if (payload) {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+      return NextResponse.redirect(new URL("/admin", req.url));
     }
   }
 
@@ -95,9 +101,12 @@ export const config = {
   matcher: [
     "/admin/:path*",
     "/login",
-    "/signup",
     "/api/posts/:path*",
     "/api/announcements/:path*",
+    "/api/projects/:path*",
+    "/api/projects",
+    "/api/team/:path*",
+    "/api/team",
     "/api/invites/:path*",
     "/api/invites",
     "/api/users/:path*",
