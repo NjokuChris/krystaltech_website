@@ -176,7 +176,7 @@ export default function TechHubHero() {
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden z-50 bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
+    <section className="relative isolate overflow-hidden bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
       <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
@@ -188,7 +188,7 @@ export default function TechHubHero() {
           <br />
           <span className="relative uppercase inline-block font-bold">
             the future
-            <UnderlineSwipe />
+            <UnderlineSwipe />     
           </span>
         </motion.h1>
 
@@ -240,8 +240,7 @@ export default function TechHubHero() {
           </Link>
         </motion.div>
       </div>
-
-      <ContactDrawer  open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ContactDrawer open={contactOpen} onClose={() => setContactOpen(false)} />
     </section>
   );
 }

@@ -7,6 +7,7 @@ import Footer from "@/_components/Footer";
 import DeviceCTABanner from "@/_components/DeviceCTABanner";
 import { ctaConfigs } from "@/_components/ctaConfigs";
 import { db } from "@/lib/prisma";
+import JsonLd, { breadcrumbSchema } from "@/_components/JsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -30,8 +31,15 @@ export async function generateMetadata({ params }: PageProps) {
   if (!project) return { title: "Project not found" };
 
   return {
-    title: `${project.title} | Krystal Tech Hub`,
+    title: project.title,
     description: project.summary,
+    openGraph: {
+      title: project.title,
+      description: project.summary,
+      images: project.image.startsWith("http")
+        ? [{ url: project.image }]
+        : [{ url: `https://www.krystaltechhub.com${project.image}` }],
+    },
   };
 }
 
@@ -45,6 +53,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
   return (
     <main className="bg-[#F3F1EA] font-sans text-[#11142B]">
+      <JsonLd data={breadcrumbSchema([
+        { name: "Our Work", url: "/work" },
+        { name: project.title, url: `/work/${project.slug}` },
+      ])} />
       <NavBar />
 
       <article className="px-5 pb-16 pt-12 md:px-10 md:pb-24 md:pt-16">

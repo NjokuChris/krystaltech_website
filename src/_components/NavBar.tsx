@@ -39,7 +39,9 @@ export default function NavBar() {
   // Lock body scroll when overlay is open
   useEffect(() => {
     document.body.style.overflow = contactOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [contactOpen]);
 
   const closeMobile = () => {
@@ -53,7 +55,7 @@ export default function NavBar() {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`sticky top-0 z-50 w-full transition-colors duration-300 ${
+        className={`sticky top-0 z-[40] w-full transition-colors duration-300 ${
           scrolled
             ? "border-b border-[#11142B]/10 bg-[#F3F1EA]/80 backdrop-blur-md"
             : "border-b border-transparent bg-[#F3F1EA]"
@@ -119,7 +121,8 @@ export default function NavBar() {
                             href={item.href}
                             className="mt-1 flex items-center justify-center gap-1 rounded-xl bg-[#11142B]/[0.04] px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-[#11142B]/60 transition-colors hover:bg-[#11142B]/[0.08] hover:text-[#11142B]"
                           >
-                            View all programs <FiArrowRight className="text-xs" />
+                            View all programs{" "}
+                            <FiArrowRight className="text-xs" />
                           </Link>
                         </div>
                       </motion.div>
@@ -201,7 +204,10 @@ export default function NavBar() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{
+                              duration: 0.25,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
                             className="overflow-hidden pl-3"
                           >
                             {item.children.map((child) => (
@@ -233,7 +239,10 @@ export default function NavBar() {
                 )}
                 <li className="mt-2">
                   <button
-                    onClick={() => { closeMobile(); setContactOpen(true); }}
+                    onClick={() => {
+                      closeMobile();
+                      setContactOpen(true);
+                    }}
                     className="flex w-full items-center justify-center gap-2 rounded-full bg-[#11142B] px-6 py-3 text-sm font-semibold text-white"
                   >
                     Get in touch <FiArrowRight className="text-xs" />

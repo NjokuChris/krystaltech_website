@@ -13,10 +13,55 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = "https://www.krystaltechhub.com";
+
 export const metadata: Metadata = {
-  title: "Krystal Tech Hub",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Krystal Tech Hub — Tech Training & Software Development in Port Harcourt",
+    template: "%s | Krystal Tech Hub",
+  },
   description:
-    "Krystal Technologies is a tech company specializing in web and mobile app development, software consulting, and digital solutions that help businesses grow through innovation and technology.",
+    "Krystal Tech Hub trains young people in coding, design, robotics and more — and builds websites, apps and brands for businesses in Port Harcourt and beyond.",
+  keywords: [
+    "tech training Port Harcourt",
+    "coding school Nigeria",
+    "software development Port Harcourt",
+    "web development Nigeria",
+    "kids coding class Port Harcourt",
+    "Krystal Tech Hub",
+    "robotics for kids Nigeria",
+    "mobile app development Port Harcourt",
+  ],
+  authors: [{ name: "Krystal Tech Hub", url: BASE_URL }],
+  creator: "Krystal Tech Hub",
+  openGraph: {
+    type: "website",
+    locale: "en_NG",
+    url: BASE_URL,
+    siteName: "Krystal Tech Hub",
+    title: "Krystal Tech Hub — Tech Training & Software Development in Port Harcourt",
+    description:
+      "We train young builders and ship real software for businesses. Based in Port Harcourt, Nigeria.",
+    images: [{ url: "/krystal4.png", width: 1200, height: 630, alt: "Krystal Tech Hub" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@krystal_teck",
+    creator: "@krystal_teck",
+    title: "Krystal Tech Hub — Tech Training & Software Development",
+    description:
+      "We train young builders and ship real software for businesses. Based in Port Harcourt, Nigeria.",
+    images: ["/krystal4.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

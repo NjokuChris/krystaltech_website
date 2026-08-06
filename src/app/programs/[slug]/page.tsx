@@ -25,8 +25,12 @@ export async function generateMetadata({
 
   const description = data.intro[0] ?? "";
   return {
-    title: `${data.titleTop} ${data.titleBottom} | Krystal Tech Hub`,
+    title: `${data.titleTop} ${data.titleBottom}`,
     description: description.slice(0, 160),
+    openGraph: {
+      title: `${data.titleTop} ${data.titleBottom} — Krystal Tech Hub`,
+      description: description.slice(0, 160),
+    },
   };
 }
 

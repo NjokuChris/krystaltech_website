@@ -16,6 +16,7 @@ import Footer from "@/_components/Footer";
 import DeviceCTABanner from "@/_components/DeviceCTABanner";
 import { ctaConfigs } from "@/_components/ctaConfigs";
 import { getPublishedPostBySlug, getPublishedPosts, formatPostDate } from "@/lib/content";
+import JsonLd, { articleSchema, breadcrumbSchema } from "@/_components/JsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -30,8 +31,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = await getPublishedPostBySlug(slug);
   if (!post) return { title: "Post not found" };
   return {
-    title: `${post.title} - Krystal Tech Hub`,
+    title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.createdAt.toISOString(),
+      images: [{ url: post.image.startsWith("http") ? post.image : `https://www.krystaltechhub.com${post.image}` }],
+    },
   };
 }
 
@@ -51,6 +59,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <main className="bg-[#F3F1EA] font-sans text-[#11142B]">
+      <JsonLd data={articleSchema(post)} />
+      <JsonLd data={breadcrumbSchema([{ name: "Blog", url: "/blog" }, { name: post.title, url: `/blog/${post.slug}` }])} />
       <NavBar />
 
       <article className="px-5 pb-16 pt-12 md:px-10 md:pb-24 md:pt-16">
