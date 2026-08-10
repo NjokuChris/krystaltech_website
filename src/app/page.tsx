@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 //components
 import NavBar from "@/_components/NavBar";
 import Hero from "@/_components/Hero";
+import StatsPartners from "@/_components/StatsPartners";
 import Stats from "@/_components/programs";
 import AboutSection from "@/_components/AboutSection";
 import ServicesSection from "@/_components/ServicesSection";
@@ -27,7 +28,6 @@ import Testimonial from "@/_components/Testimonial";
 import WhyChooseUs from "@/_components/WhyChooseUs";
 import OurWork from "@/_components/OurWorks";
 import Extra from "@/_components/Extra";
-import PreFooter from "@/_components/PreFooter";
 import Footer from "@/_components/Footer";
 import Happeningnow from "@/_components/Happeningnow";
 
@@ -37,6 +37,7 @@ const LandingPage = () => {
       <JsonLd data={localBusinessSchema} />
       <NavBar />
       <Hero />
+      <StatsPartners />
       <Happeningnow />
       <Stats />
       <ServicesSection />
@@ -46,7 +47,6 @@ const LandingPage = () => {
       <WhyChooseUs />
       <OurWork />
       <Extra />
-      <PreFooter />
       <Footer />
     </main>
   );

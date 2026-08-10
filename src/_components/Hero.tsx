@@ -1,245 +1,186 @@
 "use client";
 
-/**
- * TechHubHero - Krystal Tech Hub landing hero
- * ------------------------------------------------------------
- * Stack: Next.js (App Router) + TypeScript + Tailwind + Framer Motion
- * Layout modeled on a centered headline + fanned photo-card row,
- * with an underline swipe under the headline and a pill CTA
- * sitting below the card row.
- *
- * DESIGN NOTE ON IMAGES
- * The cards use generic stock photos (kids typing, coding, at
- * computers) from Pexels, just plain photos, no text/labels on them.
- * Six show on mobile, eight on desktop. Swap each `photo` URL in CARDS
- * for a real photo of your own students (with parental consent) when
- * ready, same img tag, same frame, same animation.
- *
- * SETUP
- * npm install framer-motion
- * Optional: load real fonts via next/font, e.g.
- *   import { Space_Grotesk } from 'next/font/google'
- */
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
 import ContactDrawer from "@/_components/ContactDrawer";
 
-// ---------------------------------------------------------------
-// Content
-// ---------------------------------------------------------------
-
-type Pose = { rotate: number; x: number; y: number };
-
-type Card = {
-  photo: string;
-  mobile: Pose; // resting pose in the 6-up mobile fan
-  desktop: Pose; // resting pose in the 8-up desktop fan
-  desktopOnly?: boolean; // the two extra cards, hidden below md
-};
-
-// Six cards render on mobile, all eight on desktop. The two
-// desktopOnly cards sit on the outer edges of the wider desktop fan.
-const CARDS: Card[] = [
+// ── Photo collage cards (right side) ────────────────────────────────────────
+// 4 cards: one large feature, three smaller supporting shots.
+// Positions are absolute within the collage container.
+const PHOTOS = [
   {
-    photo: "https://images.pexels.com/photos/8500352/pexels-photo-8500352.jpeg",
-    mobile: { rotate: -15, x: -360, y: 40 },
-    desktop: { rotate: -16, x: -430, y: 44 },
+    src: "/students-1.jpg",
+    alt: "Krystal Tech Hub classroom",
+    className:
+      "absolute top-0 left-0 w-[58%] aspect-[4/5] rounded-[28px] object-cover object-center shadow-2xl shadow-[#11142B]/20 z-20",
   },
   {
-    photo: "/students-3.jpg",
-    mobile: { rotate: -9, x: -216, y: 16 },
-    desktop: { rotate: -11, x: -307, y: 20 },
-  },
-  {
-    photo: "https://images.pexels.com/photos/5428003/pexels-photo-5428003.jpeg",
-    mobile: { rotate: -3, x: -72, y: -6 },
-    desktop: { rotate: -6, x: -184, y: 2 },
-  },
-  {
-    photo: "/students-5.jpg",
-    mobile: { rotate: 3, x: 72, y: -6 },
-    desktop: { rotate: -2, x: -61, y: -8 },
-  },
-  {
-    photo: "/students-6.jpg",
-    mobile: { rotate: 9, x: 216, y: 16 },
-    desktop: { rotate: 2, x: 61, y: -8 },
-  },
-  {
-    photo: "/students-2.jpg",
-    mobile: { rotate: 15, x: 360, y: 40 },
-    desktop: { rotate: 6, x: 184, y: 2 },
-  },
-  {
-    photo: "/students-4.jpg",
-    mobile: { rotate: 0, x: 0, y: 0 },
-    desktop: { rotate: 11, x: 307, y: 20 },
-    desktopOnly: true,
-  },
-  {
-    photo: "https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg",
-    mobile: { rotate: 0, x: 0, y: 0 },
-    desktop: { rotate: 16, x: 430, y: 44 },
-    desktopOnly: true,
+    src: "/students-3.jpg",
+    alt: "Student at work",
+    className:
+      "absolute bottom-[5%] right-0 w-[44%] aspect-[3/4] rounded-[24px] object-cover object-top shadow-xl shadow-[#11142B]/15 z-30",
   },
 ];
 
-// ---------------------------------------------------------------
-// Hand-drawn underline swipe under the headline
-// ---------------------------------------------------------------
+// ── Stats strip ──────────────────────────────────────────────────────────────
+const fadeLeft = {
+  initial: { opacity: 0, x: -24 },
+  animate: { opacity: 1, x: 0 },
+};
 
-function UnderlineSwipe() {
-  return (
-    <svg
-      viewBox="0 0 300 20"
-      className="absolute -bottom-2 left-0 h-4 w-full"
-      preserveAspectRatio="none"
-    >
-      <motion.path
-        d="M4 12 C 80 18, 220 4, 296 10"
-        fill="none"
-        stroke="#FFB627"
-        strokeWidth={5}
-        strokeLinecap="round"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 0.7, delay: 0.6, ease: "easeInOut" }}
-      />
-    </svg>
-  );
-}
-
-// ---------------------------------------------------------------
-// One plain photo card in the fanned row
-// ---------------------------------------------------------------
-
-function PhotoCard({ c, index, pose }: { c: Card; index: number; pose: Pose }) {
-  return (
-    <motion.div
-      className={`absolute left-1/2 top-1/2 h-50 w-44 -translate-x-1/2 -translate-y-1/2 cursor-pointer overflow-hidden rounded-[28px] shadow-2xl sm:h-62 sm:w-52 ${
-        c.desktopOnly ? "hidden md:block" : ""
-      }`}
-      style={{ zIndex: index }}
-      initial={{ x: 0, y: 30, rotate: 0, opacity: 0, scale: 0.92 }}
-      animate={{
-        x: pose.x,
-        y: pose.y,
-        rotate: pose.rotate,
-        opacity: 1,
-        scale: 1,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 110,
-        damping: 15,
-        delay: 0.15 * index,
-      }}
-      whileHover={{
-        rotate: 0,
-        scale: 1.06,
-        y: pose.y - 16,
-        zIndex: 50,
-        transition: { type: "spring", stiffness: 300, damping: 18 },
-      }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={c.photo}
-        alt=""
-        className="h-full w-full bg-[#e9e6dd] object-cover"
-        onError={(e) => {
-          (e.currentTarget as HTMLImageElement).style.background = "#e9e6dd";
-        }}
-      />
-    </motion.div>
-  );
-}
-
-// ---------------------------------------------------------------
-// Hero
-// ---------------------------------------------------------------
-
-export default function TechHubHero() {
-  // Pick each card's resting pose by breakpoint: the desktop fan is
-  // wider (8 cards), the mobile fan tighter (6). md = 768px.
-  const [isDesktop, setIsDesktop] = useState(false);
+export default function Hero() {
   const [contactOpen, setContactOpen] = useState(false);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
   return (
-    <section className="relative isolate overflow-hidden bg-[#F3F1EA] px-6 pb-40 pt-7 md:px-12">
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl font-light leading-[1.05] tracking-tight text-[#11142B] sm:text-6xl lg:text-7xl"
-        >
-          We Train and build
-          <br />
-          <span className="relative uppercase inline-block font-bold">
-            the future
-            <UnderlineSwipe />     
-          </span>
-        </motion.h1>
+    <section className="relative isolate overflow-hidden bg-white">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/newheroimg1.png"
+          alt=""
+          fill
+          priority
+          sizes="90vw"
+          className="object-cover object-center"
+        />
+      </div>
 
-        {/* fanned photo row: 6 cards on mobile, 8 on desktop */}
-        <div className="relative mt-10 h-72 w-full max-w-6xl sm:mt-10 sm:h-80">
-          {CARDS.map((c, i) => (
-            <PhotoCard
-              key={c.photo}
-              c={c}
-              index={i}
-              pose={isDesktop ? c.desktop : c.mobile}
-            />
-          ))}
-        </div>
+      {/* ── Full background image ──────────────────────────────────────────── */}
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="mt-8 max-w-md text-sm text-[#11142B]/70 font-medium sm:text-base"
-        >
-          We build future tech talent and premium software.
-          <br />
-          For ambitious people and growing businesses.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.15 }}
-          className="mt-6 flex flex-wrap items-center justify-center gap-4"
-        >
-          <motion.button
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => setContactOpen(true)}
-            className="rounded-full bg-[#11142B] px-8 py-3 text-sm font-semibold text-white shadow-xl"
+      <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 px-5 py-16 md:px-10 md:py-24 lg:grid-cols-2 lg:gap-16 lg:py-32">
+        {/* ── LEFT: copy + CTAs ─────────────────────────────────────────────── */}
+        <div className="flex flex-col items-start">
+          {/* headline */}
+          <motion.h1
+            {...fadeLeft}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="mt-6 text-5xl font-light leading-[1.05] tracking-tight text-[#11142B] sm:text-6xl lg:text-7xl"
           >
-            Start a Project
-          </motion.button>
-          <Link href="/programs">
+            We Train
+            <br />
+            <span className="relative font-bold">
+              the Future.
+              {/* amber underline swipe */}
+              <svg
+                viewBox="0 0 260 16"
+                className="absolute -bottom-1 left-0 h-3 w-full"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M4 10 C 70 16, 190 3, 256 8"
+                  fill="none"
+                  stroke="#FFB627"
+                  strokeWidth={5}
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.7, delay: 0.7, ease: "easeInOut" }}
+                />
+              </svg>
+            </span>
+            <br />
+            <span className="text-[#11142B]/50">Build the Present.</span>
+          </motion.h1>
+
+          {/* subtext */}
+          <motion.p
+            {...fadeLeft}
+            transition={{ duration: 0.6, delay: 0.18 }}
+            className="mt-6 max-w-lg text-base leading-relaxed text-[#11142B]/65 sm:text-lg"
+          >
+            Krystal Tech Hub runs hands-on coding programs for young people and
+            ships real websites, apps and brands for businesses — all under one
+            roof in Port Harcourt.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            {...fadeLeft}
+            transition={{ duration: 0.5, delay: 0.28 }}
+            className="mt-8 flex flex-wrap items-center gap-4"
+          >
             <motion.button
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="rounded-full border border-[#11142B]/20 px-8 py-3 text-sm font-semibold text-[#11142B]"
+              onClick={() => setContactOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#FFB627] px-7 py-3.5 text-sm font-semibold text-[#11142B] shadow-lg shadow-[#11142B]/20 transition-shadow hover:shadow-[#11142B]/35"
             >
-              See courses
+              Start a Project <FiArrowRight className="text-xs" />
             </motion.button>
-          </Link>
+
+            <Link href="/programs">
+              <motion.span
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#11142B]/25 bg-white px-7 py-3.5 text-sm font-semibold text-[#11142B] transition-colors hover:bg-[#11142B]/5"
+              >
+                Explore Programs <FiArrowRight className="text-xs" />
+              </motion.span>
+            </Link>
+          </motion.div>
+
+        </div>
+
+        {/* ── RIGHT: photo collage ───────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, x: 32 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative hidden lg:block"
+        >
+          {/* collage background decorators */}
+          <div className="absolute inset-0 -right-8 -top-8 rounded-[40px] bg-[#11142B]/5" />
+          <div className="absolute inset-0 -bottom-8 -left-4 rounded-[40px] border border-[#FFB627]/40" />
+
+          {/* collage wrapper — fixed height so cards have room */}
+          <div className="relative h-[580px] w-full">
+            {PHOTOS.map((photo, i) => (
+              <motion.div
+                key={photo.src}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3 + i * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={photo.className}
+                style={{ position: "absolute" }}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 1400px) 50vw, 600px"
+                  className={`rounded-[inherit] object-cover ${photo.className.includes("object-top") ? "object-top" : "object-center"}`}
+                  priority={i === 0}
+                />
+              </motion.div>
+            ))}
+
+            {/* floating badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.75 }}
+              className="absolute bottom-[14%] left-[54%] z-40 flex items-center gap-2.5 rounded-2xl bg-white px-4 py-3 shadow-xl shadow-[#11142B]/15"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFB627]">
+                <svg viewBox="0 0 20 20" fill="#11142B" className="h-5 w-5">
+                  <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                </svg>
+              </span>
+              <div>
+                <p className="text-xs font-bold text-[#11142B]">8 Programs</p>
+                <p className="text-[10px] text-[#11142B]/50">Enrolment open</p>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
+
       <ContactDrawer open={contactOpen} onClose={() => setContactOpen(false)} />
     </section>
   );
